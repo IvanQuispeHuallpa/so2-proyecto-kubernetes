@@ -1,0 +1,17 @@
+# Documentos entregables generados (se manejan aparte)
+Entregables/*
+!Entregables/.gitkeep
+*.docx
+*.pptx
+*.pdf
+
+# Artículos de referencia y plantilla (material con derechos de terceros / institucional)
+Referencias/
+
+# Python / sistema
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+Thumbs.db
+~$*
