@@ -1,0 +1,19 @@
+# Denegar todo el tráfico por defecto en el namespace de aplicaciones; luego se permite por etiqueta.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+  namespace: prod
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+---
+# Pod Security Admission (perfil restricted) en el namespace de aplicaciones.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod
+  labels:
+    pod-security.kubernetes.io/enforce: restricted

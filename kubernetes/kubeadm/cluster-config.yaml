@@ -1,0 +1,10 @@
+# Inicialización del primer nodo de control (cp01):
+#   kubeadm init --config cluster-config.yaml --upload-certs --skip-phases=addon/kube-proxy
+# (Cilium reemplaza a kube-proxy). Fijar la versión antes de ejecutar.
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: ClusterConfiguration
+kubernetesVersion: v1.XX.X   # versión menor estable soportada, fijada en la actividad A1
+controlPlaneEndpoint: "10.10.20.10:6443"
+networking:
+  podSubnet: 10.244.0.0/16
+  serviceSubnet: 10.96.0.0/12

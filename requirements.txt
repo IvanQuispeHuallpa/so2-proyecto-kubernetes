@@ -1,4 +1,0 @@
-python-docx
-python-pptx
-matplotlib
-Pillow

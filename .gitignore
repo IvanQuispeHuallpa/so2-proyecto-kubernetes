@@ -1,17 +1,23 @@
-# Documentos entregables generados (se manejan aparte)
-Entregables/*
-!Entregables/.gitkeep
+# Documentación entregable y material de referencia (se manejan aparte)
+Entregables/
+Referencias/
 *.docx
 *.pptx
 *.pdf
 
-# Artículos de referencia y plantilla (material con derechos de terceros / institucional)
-Referencias/
+# Secretos y variables locales
+*.env
+*.key
+*.pem
+*vault-pass*
+secrets/
 
-# Python / sistema
+# Python / Ansible / sistema
 __pycache__/
 *.pyc
 .venv/
+*.retry
+.vagrant/
 .DS_Store
 Thumbs.db
 ~$*
