@@ -1,0 +1,63 @@
+<section id="ha" data-transition="fade" style="background:#0E1626;color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">// DISEÑO</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-1px;color:#F1F5FB">Alta disponibilidad ante fallas</h2>
+</div>
+<table style="font-size:24px;font-family:'Inter', Arial, sans-serif;color:#C7D2E3;border:1px solid #24334F">
+<tr style="background:#141F36"><th style="width:27%;text-align:left;color:#22D3EE">Falla</th><th style="width:27%;text-align:left;color:#22D3EE">Efecto</th><th style="width:35%;text-align:left;color:#22D3EE">Recuperación</th><th style="width:11%;text-align:left;color:#22D3EE">Tiempo</th></tr>
+<tr><td style="color:#F1F5FB">Cae lb01 (balanceador activo)</td><td>Ninguno</td><td>Keepalived mueve la VIP a lb02</td><td style="color:#22D3EE">≤ 10 s</td></tr>
+<tr><td style="color:#F1F5FB">Un nodo de control</td><td>API disponible</td><td>HAProxy lo excluye; etcd reelige líder</td><td style="color:#22D3EE">≤ 10 s</td></tr>
+<tr><td style="color:#F1F5FB">Un nodo de trabajo</td><td>Pods reprogramados</td><td>tolerationSeconds y planificador</td><td style="color:#22D3EE">≤ 5 min</td></tr>
+<tr><td style="color:#F1F5FB">Un host físico</td><td>Sin corte del servicio</td><td>Réplicas en los otros hosts (N+1)</td><td style="color:#22D3EE">Sin corte</td></tr>
+<tr><td style="color:#F1F5FB">Primario de PostgreSQL</td><td>Escrituras en pausa</td><td>CloudNativePG promueve una réplica</td><td style="color:#22D3EE">≤ 30 s</td></tr>
+<tr><td style="color:#F1F5FB">Dos nodos de control</td><td>API de solo lectura; apps siguen</td><td>Restaurar el nodo o el snapshot de etcd</td><td style="color:#22D3EE">≤ 4 h</td></tr>
+</table>
+<x-embed style="position:absolute;left:128px;top:690px;width:1664px;height:224px"><style>html,body{margin:0;height:100%;overflow:hidden;background:transparent}body{position:relative;font:24px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#C7D2E3}.n{position:absolute;box-sizing:border-box;border:2px solid #2A3B5C;background:#111B30;border-radius:14px;padding:10px 14px;transition:border-color .5s,background .5s}.t{color:#F1F5FB;white-space:nowrap}.s{margin-top:4px;color:#94A3B8;white-space:nowrap}.dot{position:absolute;border-radius:50%;background:#22D3EE;box-shadow:0 0 10px #22D3EE;pointer-events:none}.down{border-color:#F59E0B;background:#2A1D0C}.vip{position:absolute;box-sizing:border-box;width:230px;height:44px;border-radius:22px;background:#0F2A3D;border:2px solid #22D3EE;color:#E6FAFE;text-align:center;line-height:40px;white-space:nowrap}.cap{position:absolute;font:24px system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:#AEBBD0;white-space:nowrap}.big{position:absolute;font:600 44px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#22D3EE}.sp{font:24px system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;padding:6px 10px;border-radius:8px;border:1px solid #2A3B5C;color:#7C8BA1;white-space:nowrap;transition:background .3s,color .3s,border-color .3s}.sp.cur{background:#22D3EE;border-color:#22D3EE;color:#0B1220;font-weight:600}.sp.warn{background:#F59E0B;border-color:#F59E0B;color:#0B1220;font-weight:600}.sp.done{color:#C7D2E3;border-color:#2F6577}</style>
+<svg id="g" width="1664" height="224" style="position:absolute;left:0;top:0"></svg>
+<script>
+var B=document.body,NS='http://www.w3.org/2000/svg',G=document.getElementById('g'),dots=[],last=performance.now();
+function box(c,x,y,w,h){var d=document.createElement('div');d.className=c;d.style.left=x+'px';d.style.top=y+'px';if(w)d.style.width=w+'px';if(h)d.style.height=h+'px';B.appendChild(d);return d}
+function tx(p,c,s){var d=document.createElement('div');d.className=c;d.textContent=s;p.appendChild(d);return d}
+function ln(x1,y1,x2,y2,dash){var l=document.createElementNS(NS,'line');l.setAttribute('x1',x1);l.setAttribute('y1',y1);l.setAttribute('x2',x2);l.setAttribute('y2',y2);l.setAttribute('stroke','#2A3B5C');l.setAttribute('stroke-width','2');if(dash)l.setAttribute('stroke-dasharray','6 6');G.appendChild(l);return l}
+function shoot(p,o){o=o||{};if(dots.length>80)return null;var d=document.createElement('div');d.className='dot';var z=o.size||12;d.style.width=z+'px';d.style.height=z+'px';d.style.margin=(-z/2)+'px 0 0 '+(-z/2)+'px';if(o.col){d.style.background=o.col;d.style.boxShadow='0 0 10px '+o.col}B.appendChild(d);var seg=[],L=0;for(var i=2;i!==p.length;i+=2){var l=Math.hypot(p[i]-p[i-2],p[i+1]-p[i-1]);seg.push(l);L+=l}var q={e:d,p:p,seg:seg,L:L,s:0,v:o.v||260,end:o.end};dots.push(q);put(q);return q}
+function put(q){var s=q.s,i=0;while(i+1!==q.seg.length){if(s>q.seg[i]){s-=q.seg[i];i++}else break}var f=q.seg[i]?Math.min(1,s/q.seg[i]):0,p=q.p;q.e.style.left=(p[2*i]+(p[2*i+2]-p[2*i])*f)+'px';q.e.style.top=(p[2*i+1]+(p[2*i+3]-p[2*i+1])*f)+'px'}
+function step(dt){for(var k=dots.length-1;k>=0;k--){var q=dots[k];q.s+=q.v*dt;if(q.s>=q.L){q.e.remove();dots.splice(k,1);if(q.end)q.end()}else put(q)}}
+function seq(list){var i=0;function nx(){var s=list[i];i=(i+1)%list.length;s[1]();setTimeout(nx,s[0])}nx()}
+function steps(x,y,names){var w=document.createElement('div');w.style.cssText='position:absolute;left:'+x+'px;top:'+y+'px;display:flex;gap:8px';var a=[];for(var i=0;i!==names.length;i++){var p=document.createElement('div');p.className='sp';p.textContent=(i+1)+' '+names[i];w.appendChild(p);a.push(p)}B.appendChild(w);return function(k,warn){for(var i=0;i!==a.length;i++)a[i].className='sp'+((i===k)?(warn?' warn':' cur'):((k>i)?' done':''))}}
+var LBC=[50,174],CPC=[30,112,194],A=0,Dn=-1,by=28,bt=28,run=false,tv=0;
+for(var a=0;a!==2;a++)for(var b=0;b!==3;b++)ln(700,LBC[a],820,CPC[b],1);
+ln(590,92,590,132,1);
+var l1=ln(170,112,210,50),l2=ln(440,50,480,50);l1.setAttribute('stroke','#22D3EE');l2.setAttribute('stroke','#22D3EE');
+var cl=box('n',0,72,170,80);tx(cl,'t','kubectl');tx(cl,'s','cliente');
+var lbs=[],ls=[];for(var i=0;i!==2;i++){var x=box('n',480,i?132:8,220,84);tx(x,'t','lb0'+(i+1));ls.push(tx(x,'s',''));lbs.push(x)}
+var vl=box('cap',604,96);vl.style.font='24px ui-monospace,Menlo,Consolas,monospace';vl.style.color='#7C8BA1';vl.textContent='VRRP';
+for(var j=0;j!==3;j++){var c=box('n',820,CPC[j]-28,170,56);tx(c,'t','cp-0'+(j+1))}
+var vb=box('vip',210,28);vb.textContent='VIP 10.10.20.10';
+var set=steps(1040,0,['Normal','Falla','Detección','Conmutación']);
+var tl=box('cap',1040,62);tl.textContent='Interrupción (simulada):';
+var bg=box('big',1340,52);
+var L1=box('cap',1040,116),L2=box('cap',1040,152),L3=box('cap',1040,188);L1.style.color='#F1F5FB';
+function say(a,b,c){L1.textContent=a;L2.textContent=b||'';L3.textContent=c||''}
+function fmt(v){return v.toFixed(1).replace('.',',')+' s'}
+function nm(i){return 'lb0'+(i+1)}
+function R(){for(var i=0;i!==2;i++){if(i===Dn){lbs[i].className='n down';ls[i].textContent='caído';ls[i].style.color='#F59E0B'}else{lbs[i].className='n';ls[i].textContent=(i===A)?'MASTER':'BACKUP';ls[i].style.color=(i===A)?'#22D3EE':'#94A3B8'}}}
+seq([
+[4500,function(){Dn=-1;run=false;tv=0;R();set(0);say(nm(A)+' es MASTER: tiene la VIP y todo el tráfico.','Cada segundo envía un anuncio VRRP a '+nm(1-A)+'.','')}],
+[1500,function(){Dn=A;run=true;R();set(1,true);say('Cae '+nm(A)+': las peticiones a la VIP se pierden','(puntos naranjas) y cesan los anuncios VRRP.','')}],
+[1000,function(){set(2,true);say(nm(1-A)+' no recibe anuncios: 1 de 3 perdidos…','Con 3 anuncios perdidos asume que '+nm(A)+' cayó.','')}],
+[1000,function(){L1.textContent=nm(1-A)+' no recibe anuncios: 2 de 3 perdidos…'}],
+[1000,function(){L1.textContent=nm(1-A)+' no recibe anuncios: 3 de 3 perdidos'}],
+[4500,function(){A=1-A;bt=LBC[A]-22;run=false;R();set(3);say(nm(A)+' pasa a MASTER y toma la VIP.','Interrupción ≈ '+fmt(tv)+' · meta de PH-01: ≤ 10 s','El tráfico vuelve sin cambiar nada en el cliente.')}],
+[3500,function(){var b=1-A;Dn=-1;R();set(4);say(nm(b)+' vuelve como BACKUP; la VIP se queda','en '+nm(A)+' para evitar otra interrupción.','')}]
+]);
+setInterval(function(){if(Dn===A)return;shoot(A===0?[590,92,590,132]:[590,132,590,92],{size:10,col:'#A5F3FC',v:60})},1000);
+setInterval(function(){var y=by+22,ly=LBC[A],cy=CPC[Math.floor(Math.random()*3)];if(Dn===A){shoot([170,112,210,y,440,y],{v:380,col:'#F59E0B'})}else{shoot([170,112,210,y,440,y,480,ly,700,ly,820,cy],{v:420})}},260);
+function fr(t){var dt=Math.min(0.05,(t-last)/1000);last=t;if(run)tv+=dt;bg.textContent=fmt(tv);bg.style.color=run?'#F59E0B':'#22D3EE';if(Math.abs(bt-by)>0.5){by+=(bt-by)*Math.min(1,dt*5)}else by=bt;vb.style.top=by+'px';l1.setAttribute('y2',by+22);l2.setAttribute('y1',by+22);l2.setAttribute('y2',LBC[A]);step(dt);requestAnimationFrame(fr)}
+requestAnimationFrame(fr);
+</script></x-embed>
+<p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">07 / 15</p>
+<aside>Cada fila corresponde a una prueba del plan (PH-01 a PH-06). Reglas de ubicación: tres o más réplicas repartidas por host, PodDisruptionBudget con minAvailable 2, base de datos con un primario y dos réplicas, y requests y limits obligatorios. El switch y el firewall únicos son un riesgo aceptado, con equipo de repuesto en frío. La animación inferior simula la prueba PH-01 en 4 pasos: 1) el balanceador MASTER tiene la VIP y envía anuncios VRRP al BACKUP (puntos celestes entre ambos); 2) el MASTER cae, las peticiones se pierden (puntos naranjas) y el cronómetro empieza; 3) el BACKUP cuenta tres anuncios perdidos; 4) toma la VIP, el tráfico vuelve y el cronómetro se detiene dentro de la meta. Cuando el balanceador caído vuelve, queda como BACKUP para no provocar un segundo corte. En la siguiente vuelta fallan los roles invertidos. Es una simulación ilustrativa, no una medición.</aside>
+</section>

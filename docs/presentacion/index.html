@@ -1,0 +1,708 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plataforma Kubernetes de alta disponibilidad</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+html, body { margin: 0; height: 100%; background: #05080F; overflow: hidden; font-family: 'Inter', Arial, sans-serif; }
+#stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: center center; background: #0B1220; }
+#stage section { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; box-sizing: border-box; overflow: hidden; display: none !important; }
+#stage section.activa { display: flex !important; }
+#stage section * { box-sizing: border-box; }
+#stage h1, #stage h2, #stage h3, #stage p, #stage ul { margin: 0; }
+#stage ul { padding-left: 36px; }
+#stage li { margin-bottom: 10px; }
+#stage aside { display: none; }
+#stage iframe { position: absolute; }
+#stage table { width: 100%; flex: 1; border-collapse: collapse; }
+#stage th, #stage td { padding: 12px 20px; border-bottom: 1px solid #24334F; text-align: left; }
+#ayuda { position: fixed; right: 16px; bottom: 12px; color: #7C8BA1; font-size: 14px; opacity: .8; }
+</style>
+</head>
+<body>
+<div id="stage">
+<section id="cover" data-transition="fade" style="background:radial-gradient(circle at 78% 40%, #15335E 0%, #0B1220 58%);color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 112px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="width:940px;display:flex;flex-direction:column;gap:32px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">SISTEMAS OPERATIVOS II · II UNIDAD</p>
+<h1 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:96px;font-weight:700;line-height:1.04;letter-spacing:-2px;color:#F1F5FB">Plataforma Kubernetes de <span style="color:#22D3EE">alta disponibilidad</span></h1>
+<p style="font-size:32px;line-height:1.4;color:#AEBBD0">Diseño de la solución tecnológica a partir de la revisión bibliográfica de 43 trabajos</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;border-top:1px solid #24334F;padding-top:28px">
+<p style="font-size:26px;color:#F1F5FB">Universidad Privada de Tacna · Escuela Profesional de Ingeniería de Sistemas</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#94A3B8">Docente: Renzo Alberto Taco Coayla · Cortez, Quispe, Vilca, Ludeña, Jimenez, Cutipa · Noviembre de 2026</p>
+</div>
+<iframe sandbox="allow-scripts" srcdoc="&lt;style&gt;html,body{margin:0;height:100%;overflow:hidden;background:transparent}body{position:relative;font:24px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#C7D2E3}.n{position:absolute;box-sizing:border-box;border:2px solid #2A3B5C;background:#111B30;border-radius:14px;padding:12px 14px;transition:border-color .5s,background .5s}.t{color:#F1F5FB;white-space:nowrap}.s{margin-top:6px;color:#94A3B8;white-space:nowrap;transition:color .4s}.dot{position:absolute;border-radius:50%;background:#22D3EE;box-shadow:0 0 10px #22D3EE;pointer-events:none}.down{border-color:#F59E0B;background:#2A1D0C}.cand{border-color:#A5F3FC}.pod{position:absolute;width:64px;height:40px;box-sizing:border-box;border-radius:8px;background:#17325A;border:2px solid #60A5FA;animation:pl 3s ease-in-out infinite}@keyframes pl{50%{opacity:.5}}.cap{position:absolute;font:24px system-ui,-apple-system,&#x27;Segoe UI&#x27;,Roboto,sans-serif;color:#AEBBD0;white-space:nowrap}&lt;/style&gt;
+&lt;svg id=&quot;g&quot; width=&quot;692&quot; height=&quot;660&quot; style=&quot;position:absolute;left:0;top:0&quot;&gt;&lt;/svg&gt;
+&lt;script&gt;
+var B=document.body,NS=&#x27;http://www.w3.org/2000/svg&#x27;,G=document.getElementById(&#x27;g&#x27;),dots=[],last=performance.now();
+function box(c,x,y,w,h){var d=document.createElement(&#x27;div&#x27;);d.className=c;d.style.left=x+&#x27;px&#x27;;d.style.top=y+&#x27;px&#x27;;if(w)d.style.width=w+&#x27;px&#x27;;if(h)d.style.height=h+&#x27;px&#x27;;B.appendChild(d);return d}
+function tx(p,c,s){var d=document.createElement(&#x27;div&#x27;);d.className=c;d.textContent=s;p.appendChild(d);return d}
+function ln(x1,y1,x2,y2,dash){var l=document.createElementNS(NS,&#x27;line&#x27;);l.setAttribute(&#x27;x1&#x27;,x1);l.setAttribute(&#x27;y1&#x27;,y1);l.setAttribute(&#x27;x2&#x27;,x2);l.setAttribute(&#x27;y2&#x27;,y2);l.setAttribute(&#x27;stroke&#x27;,&#x27;#2A3B5C&#x27;);l.setAttribute(&#x27;stroke-width&#x27;,&#x27;2&#x27;);if(dash)l.setAttribute(&#x27;stroke-dasharray&#x27;,&#x27;6 6&#x27;);G.appendChild(l);return l}
+function shoot(p,o){o=o||{};if(dots.length&gt;80)return null;var d=document.createElement(&#x27;div&#x27;);d.className=&#x27;dot&#x27;;var z=o.size||12;d.style.width=z+&#x27;px&#x27;;d.style.height=z+&#x27;px&#x27;;d.style.margin=(-z/2)+&#x27;px 0 0 &#x27;+(-z/2)+&#x27;px&#x27;;if(o.col){d.style.background=o.col;d.style.boxShadow=&#x27;0 0 10px &#x27;+o.col}B.appendChild(d);var seg=[],L=0;for(var i=2;i!==p.length;i+=2){var l=Math.hypot(p[i]-p[i-2],p[i+1]-p[i-1]);seg.push(l);L+=l}var q={e:d,p:p,seg:seg,L:L,s:0,v:o.v||260,end:o.end};dots.push(q);put(q);return q}
+function put(q){var s=q.s,i=0;while(i+1!==q.seg.length){if(s&gt;q.seg[i]){s-=q.seg[i];i++}else break}var f=q.seg[i]?Math.min(1,s/q.seg[i]):0,p=q.p;q.e.style.left=(p[2*i]+(p[2*i+2]-p[2*i])*f)+&#x27;px&#x27;;q.e.style.top=(p[2*i+1]+(p[2*i+3]-p[2*i+1])*f)+&#x27;px&#x27;}
+function step(dt){for(var k=dots.length-1;k&gt;=0;k--){var q=dots[k];q.s+=q.v*dt;if(q.s&gt;=q.L){q.e.remove();dots.splice(k,1);if(q.end)q.end()}else put(q)}}
+function seq(list){var i=0;function nx(){var s=list[i];i=(i+1)%list.length;s[1]();setTimeout(nx,s[0])}nx()}
+var X=[0,246,492],CX=[100,346,592],cps=[],sub=[],Ld=0,D=-1,Cd=-1;
+ln(200,214,246,214,1);ln(446,214,492,214,1);
+var v=box(&#x27;n&#x27;,196,0,300,64);v.style.borderColor=&#x27;#22D3EE&#x27;;v.style.textAlign=&#x27;center&#x27;;tx(v,&#x27;t&#x27;,&#x27;API · VIP&#x27;);
+for(var i=0;i!==3;i++){ln(346,64,CX[i],160);ln(CX[i],268,CX[i],360);var c=box(&#x27;n&#x27;,X[i],160,200,108);tx(c,&#x27;t&#x27;,&#x27;cp-0&#x27;+(i+1));sub.push(tx(c,&#x27;s&#x27;,&#x27;etcd&#x27;));cps.push(c);var w=box(&#x27;n&#x27;,X[i],360,200,250);tx(w,&#x27;t&#x27;,&#x27;wk-0&#x27;+(i+1));for(var j=0;j!==6;j++){var pd=box(&#x27;pod&#x27;,X[i]+28+(j%2)*80,422+Math.floor(j/2)*56);pd.style.animationDelay=(-Math.random()*3)+&#x27;s&#x27;}}
+var cap=box(&#x27;cap&#x27;,0,622);
+function R(){for(var i=0;i!==3;i++){var c=cps[i],s=sub[i];if(i===D){c.className=&#x27;n down&#x27;;s.textContent=&#x27;sin señal&#x27;;s.style.color=&#x27;#F59E0B&#x27;}else if(i===Cd){c.className=&#x27;n cand&#x27;;s.textContent=&#x27;candidato&#x27;;s.style.color=&#x27;#A5F3FC&#x27;}else{c.className=&#x27;n&#x27;;s.textContent=(i===Ld)?&#x27;etcd · líder&#x27;:&#x27;etcd&#x27;;s.style.color=(i===Ld)?&#x27;#22D3EE&#x27;:&#x27;#94A3B8&#x27;}}}
+seq([
+[4500,function(){D=-1;Cd=-1;R();cap.textContent=&#x27;etcd replica el estado en 3 nodos; uno es el líder&#x27;}],
+[1800,function(){D=Ld;R();cap.textContent=&#x27;Cae cp-0&#x27;+(D+1)+&#x27;: el líder deja de enviar latidos&#x27;}],
+[2600,function(){Cd=(D+1)%3;var vt=(D+2)%3,cd=Cd;R();cap.textContent=&#x27;Raft: 2 de 3 nodos forman quórum y votan&#x27;;for(var k=0;k!==3;k++)setTimeout(function(){shoot([CX[vt],160,CX[vt],146,CX[cd],146,CX[cd],160],{size:10,col:&#x27;#A5F3FC&#x27;,v:520})},k*550)}],
+[2800,function(){Ld=Cd;Cd=-1;R();cap.textContent=&#x27;cp-0&#x27;+(Ld+1)+&#x27; es el nuevo líder; el clúster no se detuvo&#x27;}],
+[2800,function(){var d=D;D=-1;R();cap.textContent=&#x27;cp-0&#x27;+(d+1)+&#x27; vuelve como seguidor y se sincroniza&#x27;}]
+]);
+setInterval(function(){var k=Math.floor(Math.random()*3);if(k===D)return;if(Math.random()&gt;0.5)shoot([346,64,CX[k],160]);else shoot([CX[k],268,CX[k],360])},280);
+function fr(t){var dt=Math.min(0.05,(t-last)/1000);last=t;step(dt);requestAnimationFrame(fr)}
+requestAnimationFrame(fr);
+&lt;/script&gt;" style="position:absolute;left:1100px;top:140px;width:692px;height:660px;border:0;background:transparent"></iframe>
+<aside>Presentación del diseño de una plataforma de orquestación de contenedores con Kubernetes de alta disponibilidad, derivado de la revisión bibliográfica de la I Unidad. El escenario es un caso de referencia supuesto. La animación de la derecha muestra el clúster: la VIP del API, tres nodos de control con etcd y tres workers. En bucle: cae el líder de etcd, los dos nodos restantes forman quórum (2 de 3) y votan con Raft a un nuevo líder (puntos celestes), y el nodo caído vuelve como seguidor. El texto inferior narra cada paso.</aside>
+</section>
+<section id="problem" data-transition="fade" style="background:#0E1626;color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">// CONTEXTO</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-1px;color:#F1F5FB">El problema: aplicaciones sin redundancia</h2>
+</div>
+<div style="position:absolute;left:128px;top:300px;width:760px;display:flex;flex-direction:column;gap:16px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:40px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#F59E0B">ANTES</p>
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:40px;font-weight:600;color:#F1F5FB">Situación actual</h3>
+<ul style="font-size:26px;line-height:1.4;color:#C7D2E3">
+<li>Aplicaciones en máquinas virtuales individuales, sin redundancia</li>
+<li>Despliegues manuales de 30 a 45 minutos, sin reversión</li>
+<li>Respaldos manuales y sin pruebas de restauración</li>
+<li>Sin monitoreo centralizado ni alertas</li>
+<li>Red plana, accesos compartidos y sin escaneo de vulnerabilidades</li>
+</ul>
+</div>
+<div style="position:absolute;left:912px;top:540px;width:96px;height:48px;background:#22D3EE;clip-path:polygon(0 30%,60% 30%,60% 0,100% 50%,60% 100%,60% 70%,0 70%)"></div>
+<div data-build-in="rise 1" style="position:absolute;left:1032px;top:300px;width:760px;display:flex;flex-direction:column;gap:16px;background:#0F2A3D;border:1px solid #1C6E86;border-radius:16px;padding:40px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">DESPUÉS</p>
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:40px;font-weight:600;color:#F1F5FB">Necesidad</h3>
+<ul style="font-size:26px;line-height:1.4;color:#D5E6F2">
+<li>Continuidad: disponibilidad mensual ≥ 99,9 %</li>
+<li>Despliegue ágil con reversión inmediata</li>
+<li>Seguridad, trazabilidad y accesos por rol</li>
+<li>Respaldos verificados con metas de RPO y RTO</li>
+<li>Visibilidad antes de que los usuarios noten la falla</li>
+</ul>
+</div>
+<p style="position:absolute;left:128px;top:860px;width:1664px;font-size:24px;line-height:1.4;color:#94A3B8">Escenario de referencia supuesto: ≈ 250 usuarios, 12 aplicaciones internas y 1 portal público; carga estimada ≈ 15 vCPU y 36 GB.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">02 / 15</p>
+<aside>El enunciado no fija una organización, por eso se adopta un escenario de referencia documentado en el informe (Tabla 2). El tiempo de despliegue de 45 minutos proviene del caso de una entidad estatal peruana (Aguilar y García, 2024). Al presentar: primero se muestra la situación actual; con un clic aparece la flecha y la columna de necesidades.</aside>
+</section>
+<section id="goal" data-transition="fade" style="background:#0E1F36;color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:center;gap:32px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="width:900px;display:flex;flex-direction:column;gap:32px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">// OBJETIVO GENERAL</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.08;letter-spacing:-1px;color:#F1F5FB">Una plataforma que siga funcionando <span style="color:#22D3EE">cuando algo falla</span></h2>
+<p style="font-size:30px;line-height:1.4;color:#AEBBD0">Kubernetes con alta disponibilidad, seguridad, observabilidad y operación automatizada, sustentada en la investigación bibliográfica de la I Unidad.</p>
+<div style="display:flex;gap:20px">
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:40px;font-weight:600;line-height:1.1;color:#22D3EE">3</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">dominios de falla físicos</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:40px;font-weight:600;line-height:1.1;color:#22D3EE">≥ 99,9 %</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">de disponibilidad mensual</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:40px;font-weight:600;line-height:1.1;color:#22D3EE">5 / 30 min</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">RPO / RTO máximos</p>
+</div>
+</div>
+</div>
+<iframe sandbox="allow-scripts" srcdoc="&lt;style&gt;html,body{margin:0;height:100%;overflow:hidden;background:transparent}body{position:relative;font:24px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#C7D2E3}.n{position:absolute;box-sizing:border-box;border:2px solid #2A3B5C;background:#111B30;border-radius:14px;padding:12px 14px;transition:border-color .5s,background .5s}.t{color:#F1F5FB;white-space:nowrap}.s{margin-top:4px;color:#94A3B8;white-space:nowrap}.dot{position:absolute;border-radius:50%;background:#22D3EE;box-shadow:0 0 10px #22D3EE;pointer-events:none}.down{border-color:#F59E0B;background:#2A1D0C}.chip{position:absolute;box-sizing:border-box;width:188px;height:44px;border-radius:8px;border:1px solid #2A3B5C;background:#0D1628;padding:6px 12px;color:#C7D2E3;transition:opacity .5s}.pod{position:absolute;box-sizing:border-box;width:88px;height:44px;border-radius:8px;border:2px solid #60A5FA;color:#F1F5FB;text-align:center;line-height:40px;transition:opacity .6s,transform .6s,box-shadow .6s}.cap{position:absolute;font:24px system-ui,-apple-system,&#x27;Segoe UI&#x27;,Roboto,sans-serif;color:#AEBBD0;white-space:nowrap}.sp{font:24px system-ui,-apple-system,&#x27;Segoe UI&#x27;,Roboto,sans-serif;padding:6px 10px;border-radius:8px;border:1px solid #2A3B5C;color:#7C8BA1;white-space:nowrap;transition:background .3s,color .3s,border-color .3s}.sp.cur{background:#22D3EE;border-color:#22D3EE;color:#0B1220;font-weight:600}.sp.warn{background:#F59E0B;border-color:#F59E0B;color:#0B1220;font-weight:600}.sp.done{color:#C7D2E3;border-color:#2F6577}&lt;/style&gt;
+&lt;svg id=&quot;g&quot; width=&quot;702&quot; height=&quot;770&quot; style=&quot;position:absolute;left:0;top:0&quot;&gt;&lt;/svg&gt;
+&lt;script&gt;
+var B=document.body,NS=&#x27;http://www.w3.org/2000/svg&#x27;,G=document.getElementById(&#x27;g&#x27;),dots=[],last=performance.now();
+function box(c,x,y,w,h){var d=document.createElement(&#x27;div&#x27;);d.className=c;d.style.left=x+&#x27;px&#x27;;d.style.top=y+&#x27;px&#x27;;if(w)d.style.width=w+&#x27;px&#x27;;if(h)d.style.height=h+&#x27;px&#x27;;B.appendChild(d);return d}
+function tx(p,c,s){var d=document.createElement(&#x27;div&#x27;);d.className=c;d.textContent=s;p.appendChild(d);return d}
+function ln(x1,y1,x2,y2,dash){var l=document.createElementNS(NS,&#x27;line&#x27;);l.setAttribute(&#x27;x1&#x27;,x1);l.setAttribute(&#x27;y1&#x27;,y1);l.setAttribute(&#x27;x2&#x27;,x2);l.setAttribute(&#x27;y2&#x27;,y2);l.setAttribute(&#x27;stroke&#x27;,&#x27;#2A3B5C&#x27;);l.setAttribute(&#x27;stroke-width&#x27;,&#x27;2&#x27;);if(dash)l.setAttribute(&#x27;stroke-dasharray&#x27;,&#x27;6 6&#x27;);G.appendChild(l);return l}
+function shoot(p,o){o=o||{};if(dots.length&gt;80)return null;var d=document.createElement(&#x27;div&#x27;);d.className=&#x27;dot&#x27;;var z=o.size||12;d.style.width=z+&#x27;px&#x27;;d.style.height=z+&#x27;px&#x27;;d.style.margin=(-z/2)+&#x27;px 0 0 &#x27;+(-z/2)+&#x27;px&#x27;;if(o.col){d.style.background=o.col;d.style.boxShadow=&#x27;0 0 10px &#x27;+o.col}B.appendChild(d);var seg=[],L=0;for(var i=2;i!==p.length;i+=2){var l=Math.hypot(p[i]-p[i-2],p[i+1]-p[i-1]);seg.push(l);L+=l}var q={e:d,p:p,seg:seg,L:L,s:0,v:o.v||260,end:o.end};dots.push(q);put(q);return q}
+function put(q){var s=q.s,i=0;while(i+1!==q.seg.length){if(s&gt;q.seg[i]){s-=q.seg[i];i++}else break}var f=q.seg[i]?Math.min(1,s/q.seg[i]):0,p=q.p;q.e.style.left=(p[2*i]+(p[2*i+2]-p[2*i])*f)+&#x27;px&#x27;;q.e.style.top=(p[2*i+1]+(p[2*i+3]-p[2*i+1])*f)+&#x27;px&#x27;}
+function step(dt){for(var k=dots.length-1;k&gt;=0;k--){var q=dots[k];q.s+=q.v*dt;if(q.s&gt;=q.L){q.e.remove();dots.splice(k,1);if(q.end)q.end()}else put(q)}}
+function seq(list){var i=0;function nx(){var s=list[i];i=(i+1)%list.length;s[1]();setTimeout(nx,s[0])}nx()}
+function steps(x,y,names){var w=document.createElement(&#x27;div&#x27;);w.style.cssText=&#x27;position:absolute;left:&#x27;+x+&#x27;px;top:&#x27;+y+&#x27;px;display:flex;gap:8px&#x27;;var a=[];for(var i=0;i!==names.length;i++){var p=document.createElement(&#x27;div&#x27;);p.className=&#x27;sp&#x27;;p.textContent=(i+1)+&#x27; &#x27;+names[i];w.appendChild(p);a.push(p)}B.appendChild(w);return function(k,warn){for(var i=0;i!==a.length;i++)a[i].className=&#x27;sp&#x27;+((i===k)?(warn?&#x27; warn&#x27;:&#x27; cur&#x27;):((k&gt;i)?&#x27; done&#x27;:&#x27;&#x27;))}}
+var HX=[0,241,482],NM=[&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;],hosts=[],tags=[],chips=[],slots=[],app=[],cnt=0;
+var u=box(&#x27;n&#x27;,201,0,300,92);u.style.borderColor=&#x27;#22D3EE&#x27;;u.style.textAlign=&#x27;center&#x27;;tx(u,&#x27;t&#x27;,&#x27;Usuarios&#x27;);var uc=tx(u,&#x27;s&#x27;,&#x27;0 peticiones OK&#x27;);
+for(var i=0;i!==3;i++){ln(351,92,HX[i]+110,150);var h=box(&#x27;n&#x27;,HX[i],150,220,410);tx(h,&#x27;t&#x27;,&#x27;Host &#x27;+NM[i]);tags.push(tx(h,&#x27;s&#x27;,&#x27;activo&#x27;));hosts.push(h);var c1=box(&#x27;chip&#x27;,HX[i]+16,240);c1.textContent=&#x27;cp-0&#x27;+(i+1);var c2=box(&#x27;chip&#x27;,HX[i]+16,294);c2.textContent=&#x27;wk-0&#x27;+(i+1);chips.push([c1,c2]);var row=[],ap=[];for(var s=0;s!==6;s++){var p=box(&#x27;pod&#x27;,HX[i]+16+(s%2)*100,368+Math.floor(s/2)*58);p.style.opacity=0;row.push(p);ap.push(&#x27;&#x27;)}slots.push(row);app.push(ap)}
+var rp=box(&#x27;cap&#x27;,0,578);rp.style.color=&#x27;#F1F5FB&#x27;;var r0=document.createElement(&#x27;span&#x27;);r0.textContent=&#x27;Réplicas activas:  &#x27;;rp.appendChild(r0);var rw=document.createElement(&#x27;span&#x27;);rp.appendChild(rw);var r1=document.createElement(&#x27;span&#x27;);r1.textContent=&#x27;  ·  &#x27;;rp.appendChild(r1);var ra=document.createElement(&#x27;span&#x27;);rp.appendChild(ra);
+var set=steps(0,622,[&#x27;Normal&#x27;,&#x27;Falla&#x27;,&#x27;Reprograma&#x27;,&#x27;Estable&#x27;]);
+var C1=box(&#x27;cap&#x27;,0,682),C2=box(&#x27;cap&#x27;,0,718);C1.style.color=&#x27;#F1F5FB&#x27;;
+function say(a,b){C1.textContent=a;C2.textContent=b}
+function rep(){var w=0,a=0;for(var i=0;i!==3;i++)for(var s=0;s!==6;s++){if(app[i][s]===&#x27;web&#x27;)w++;if(app[i][s]===&#x27;api&#x27;)a++}rw.textContent=&#x27;web &#x27;+w+&#x27;/3&#x27;;rw.style.color=(w===3)?&#x27;#22D3EE&#x27;:&#x27;#F59E0B&#x27;;ra.textContent=&#x27;api &#x27;+a+&#x27;/3&#x27;;ra.style.color=(a===3)?&#x27;#22D3EE&#x27;:&#x27;#F59E0B&#x27;}
+function show(i,s,nm,nw){var p=slots[i][s];app[i][s]=nm||&#x27;&#x27;;if(nm){p.textContent=nm;p.style.background=(nm===&#x27;web&#x27;)?&#x27;#17325A&#x27;:&#x27;#2A2350&#x27;;p.style.borderColor=nw?&#x27;#22D3EE&#x27;:((nm===&#x27;web&#x27;)?&#x27;#60A5FA&#x27;:&#x27;#A78BFA&#x27;);p.style.boxShadow=nw?&#x27;0 0 16px rgba(34,211,238,.7)&#x27;:&#x27;none&#x27;;p.style.opacity=1;p.style.transform=&#x27;scale(1)&#x27;}else{p.style.opacity=0;p.style.transform=&#x27;scale(.6)&#x27;}rep()}
+function fail(i,f){hosts[i].className=f?&#x27;n down&#x27;:&#x27;n&#x27;;tags[i].textContent=f?&#x27;FALLA&#x27;:&#x27;activo&#x27;;tags[i].style.color=f?&#x27;#F59E0B&#x27;:&#x27;#94A3B8&#x27;;chips[i][0].style.opacity=f?.35:1;chips[i][1].style.opacity=f?.35:1}
+seq([
+[5500,function(){for(var i=0;i!==3;i++){fail(i,false);for(var s=0;s!==6;s++)show(i,s,(s===0)?&#x27;web&#x27;:((s===1)?&#x27;api&#x27;:&#x27;&#x27;),false)}set(0);say(&#x27;web y api tienen 3 réplicas cada una, una por host.&#x27;,&#x27;El Service reparte las peticiones entre todas.&#x27;)}],
+[1500,function(){fail(1,true);set(1,true);say(&#x27;Cae el host B: sus máquinas virtuales no responden.&#x27;,&#x27;Kubernetes marca sus pods como no disponibles.&#x27;)}],
+[3500,function(){show(1,0,&#x27;&#x27;);show(1,1,&#x27;&#x27;);say(&#x27;Se pierden los pods de B: quedan 2 de 3 réplicas.&#x27;,&#x27;El Service solo envía tráfico a los pods de A y C.&#x27;)}],
+[1300,function(){set(2);say(&#x27;El controlador detecta 2/3 réplicas y crea pods&#x27;,&#x27;nuevos (con brillo) en A y C: capacidad N+1.&#x27;)}],
+[3800,function(){show(0,2,&#x27;web&#x27;,true);show(2,2,&#x27;api&#x27;,true)}],
+[4500,function(){fail(1,false);set(3);say(&#x27;El host B vuelve vacío y queda como reserva.&#x27;,&#x27;Las peticiones nunca dejaron de atenderse.&#x27;)}]
+]);
+setInterval(function(){var live=[];for(var i=0;i!==3;i++)for(var s=0;s!==6;s++)if(app[i][s])live.push([i,s]);if(!live.length)return;var k=live[Math.floor(Math.random()*live.length)],i2=k[0],s2=k[1];var px=HX[i2]+16+(s2%2)*100+44,py=368+Math.floor(s2/2)*58+22;shoot([351,92,HX[i2]+110,150,px,py],{v:420,end:function(){if(app[i2][s2]){cnt++;uc.textContent=cnt+&#x27; peticiones OK&#x27;}}})},200);
+function fr(t){var dt=Math.min(0.05,(t-last)/1000);last=t;step(dt);requestAnimationFrame(fr)}
+requestAnimationFrame(fr);
+&lt;/script&gt;" style="position:absolute;left:1090px;top:140px;width:702px;height:770px;border:0;background:transparent"></iframe>
+<p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8EA0BA">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8EA0BA">03 / 15</p>
+<aside>Seis objetivos específicos en el informe: requerimientos, arquitectura sin puntos únicos de falla, infraestructura y red, seguridad, modelo operativo con plan de implementación y pruebas, y factibilidad frente a una nube gestionada. La animación avanza en 4 pasos numerados: 1) dos aplicaciones, web y api, con 3 réplicas cada una repartidas en los tres hosts; 2) cae el host B y el contador de réplicas baja a 2/3 (naranja); 3) el controlador crea pods nuevos en A y C (con brillo) y las réplicas vuelven a 3/3; 4) el host B vuelve vacío como reserva. El contador de peticiones atendidas nunca se detiene: esa es la alta disponibilidad.</aside>
+</section>
+<section id="research" data-transition="fade" style="background:#0B1220;color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">// INVESTIGACIÓN</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-1px;color:#F1F5FB">De la investigación al diseño</h2>
+</div>
+<p style="position:absolute;left:128px;top:284px;width:680px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;color:#94A3B8">HALLAZGO</p>
+<p style="position:absolute;left:824px;top:284px;width:360px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;color:#94A3B8">FUENTE</p>
+<p style="position:absolute;left:1272px;top:284px;width:520px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;color:#94A3B8">DECISIÓN DE DISEÑO</p>
+<div data-build-in="rise 1" style="position:absolute;left:128px;top:332px;width:1664px;display:flex;gap:16px">
+<div style="width:680px;display:flex;flex-direction:column;justify-content:center;background:#141F36;border:1px solid #24334F;border-radius:12px;padding:18px 24px"><p style="font-size:26px;line-height:1.35;color:#E2E8F2">etcd pierde rendimiento al crecer el clúster</p></div>
+<div style="width:360px;display:flex;flex-direction:column;justify-content:center;padding:18px 0px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.35;color:#94A3B8">Jeffery et al., 2021</p></div>
+<div style="width:56px;display:flex;flex-direction:column;justify-content:center"><div style="width:56px;height:28px;background:#22D3EE;clip-path:polygon(0 30%,60% 30%,60% 0,100% 50%,60% 100%,60% 70%,0 70%)"></div></div>
+<div style="width:520px;display:flex;flex-direction:column;justify-content:center;background:#0F2A3D;border:1px solid #1C6E86;border-radius:12px;padding:18px 24px"><p style="font-size:26px;line-height:1.35;color:#E6FAFE">etcd de 3 miembros sobre SSD</p></div>
+</div>
+<div data-build-in="rise 2" style="position:absolute;left:128px;top:450px;width:1664px;display:flex;gap:16px">
+<div style="width:680px;display:flex;flex-direction:column;justify-content:center;background:#141F36;border:1px solid #24334F;border-radius:12px;padding:18px 24px"><p style="font-size:26px;line-height:1.35;color:#E2E8F2">Raft no tolera fallas bizantinas</p></div>
+<div style="width:360px;display:flex;flex-direction:column;justify-content:center;padding:18px 0px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.35;color:#94A3B8">Diouf et al., 2020</p></div>
+<div style="width:56px;display:flex;flex-direction:column;justify-content:center"><div style="width:56px;height:28px;background:#22D3EE;clip-path:polygon(0 30%,60% 30%,60% 0,100% 50%,60% 100%,60% 70%,0 70%)"></div></div>
+<div style="width:520px;display:flex;flex-direction:column;justify-content:center;background:#0F2A3D;border:1px solid #1C6E86;border-radius:12px;padding:18px 24px"><p style="font-size:26px;line-height:1.35;color:#E6FAFE">Riesgo aceptado; hardening y auditoría</p></div>
+</div>
+<div data-build-in="rise 3" style="position:absolute;left:128px;top:568px;width:1664px;display:flex;gap:16px">
+<div style="width:680px;display:flex;flex-direction:column;justify-content:center;background:#141F36;border:1px solid #24334F;border-radius:12px;padding:18px 24px"><p style="font-size:26px;line-height:1.35;color:#E2E8F2">Las apps con estado se recuperan lento (−50 % con un controlador)</p></div>
+<div style="width:360px;display:flex;flex-direction:column;justify-content:center;padding:18px 0px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.35;color:#94A3B8">Vayghan et al., 2020</p></div>
+<div style="width:56px;display:flex;flex-direction:column;justify-content:center"><div style="width:56px;height:28px;background:#22D3EE;clip-path:polygon(0 30%,60% 30%,60% 0,100% 50%,60% 100%,60% 70%,0 70%)"></div></div>
+<div style="width:520px;display:flex;flex-direction:column;justify-content:center;background:#0F2A3D;border:1px solid #1C6E86;border-radius:12px;padding:18px 24px"><p style="font-size:26px;line-height:1.35;color:#E6FAFE">PostgreSQL con el operador CloudNativePG</p></div>
+</div>
+<div data-build-in="rise 4" style="position:absolute;left:128px;top:686px;width:1664px;display:flex;gap:16px">
+<div style="width:680px;display:flex;flex-direction:column;justify-content:center;background:#141F36;border:1px solid #24334F;border-radius:12px;padding:18px 24px"><p style="font-size:26px;line-height:1.35;color:#E2E8F2">Kubernetes completo rinde mejor con carga sostenida</p></div>
+<div style="width:360px;display:flex;flex-direction:column;justify-content:center;padding:18px 0px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.35;color:#94A3B8">Kjorveziroski, 2022; Koziolek, 2023</p></div>
+<div style="width:56px;display:flex;flex-direction:column;justify-content:center"><div style="width:56px;height:28px;background:#22D3EE;clip-path:polygon(0 30%,60% 30%,60% 0,100% 50%,60% 100%,60% 70%,0 70%)"></div></div>
+<div style="width:520px;display:flex;flex-direction:column;justify-content:center;background:#0F2A3D;border:1px solid #1C6E86;border-radius:12px;padding:18px 24px"><p style="font-size:26px;line-height:1.35;color:#E6FAFE">kubeadm; K3s solo como contingencia</p></div>
+</div>
+<div data-build-in="rise 5" style="position:absolute;left:128px;top:804px;width:1664px;display:flex;gap:16px">
+<div style="width:680px;display:flex;flex-direction:column;justify-content:center;background:#141F36;border:1px solid #24334F;border-radius:12px;padding:18px 24px"><p style="font-size:26px;line-height:1.35;color:#E2E8F2">Capa eBPF y límites mitigan picos y DDoS (−32 % de timeouts)</p></div>
+<div style="width:360px;display:flex;flex-direction:column;justify-content:center;padding:18px 0px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.35;color:#94A3B8">Jiang y Milani, 2026</p></div>
+<div style="width:56px;display:flex;flex-direction:column;justify-content:center"><div style="width:56px;height:28px;background:#22D3EE;clip-path:polygon(0 30%,60% 30%,60% 0,100% 50%,60% 100%,60% 70%,0 70%)"></div></div>
+<div style="width:520px;display:flex;flex-direction:column;justify-content:center;background:#0F2A3D;border:1px solid #1C6E86;border-radius:12px;padding:18px 24px"><p style="font-size:26px;line-height:1.35;color:#E6FAFE">Cilium, HPA con tope y límite de tasa</p></div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1300px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">Trazabilidad completa de 16 hallazgos en el documento técnico (Tabla 3)</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">04 / 15</p>
+<aside>Cada decisión de diseño se apoya en un hallazgo concreto de los 43 trabajos revisados. Otros ejemplos: Domínguez (2024) y Jovaní (2023) para el patrón de 3 nodos de control con Keepalived y HAProxy; Simón (2021) y Guardiola (2020) para el diseño de seguridad. Al presentar: cada clic revela una fila, del hallazgo a la decisión que provocó.</aside>
+</section>
+<section id="reqs" data-transition="fade" style="background:#0E1626;color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">// INVESTIGACIÓN</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-1px;color:#F1F5FB">Requerimientos medibles</h2>
+</div>
+<div data-build-in="rise 1" style="position:absolute;left:128px;top:296px;width:398px;height:264px;display:flex;flex-direction:column;gap:12px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:28px">
+<div style="width:40px;height:4px;background:#60A5FA;border-radius:2px"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;color:#94A3B8">DISPONIBILIDAD</p>
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#60A5FA">≥ 99,9 %</p>
+<p style="font-size:24px;line-height:1.35;color:#C7D2E3">Disponibilidad mensual (≤ 43,8 min de caída)</p>
+</div>
+<div data-build-in="rise 1" style="position:absolute;left:550px;top:296px;width:398px;height:264px;display:flex;flex-direction:column;gap:12px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:28px">
+<div style="width:40px;height:4px;background:#60A5FA;border-radius:2px"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;color:#94A3B8">DATOS</p>
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#60A5FA">≤ 5 min</p>
+<p style="font-size:24px;line-height:1.35;color:#C7D2E3">RPO de las bases de datos (WAL continuo)</p>
+</div>
+<div data-build-in="rise 1" style="position:absolute;left:972px;top:296px;width:398px;height:264px;display:flex;flex-direction:column;gap:12px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:28px">
+<div style="width:40px;height:4px;background:#60A5FA;border-radius:2px"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;color:#94A3B8">RECUPERACIÓN</p>
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#60A5FA">≤ 30 min</p>
+<p style="font-size:24px;line-height:1.35;color:#C7D2E3">RTO de un namespace (reconstrucción total ≤ 4 h)</p>
+</div>
+<div data-build-in="rise 1" style="position:absolute;left:1394px;top:296px;width:398px;height:264px;display:flex;flex-direction:column;gap:12px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:28px">
+<div style="width:40px;height:4px;background:#60A5FA;border-radius:2px"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;color:#94A3B8">RENDIMIENTO</p>
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#60A5FA">≤ 500 ms</p>
+<p style="font-size:24px;line-height:1.35;color:#C7D2E3">Latencia p95 a 200 solicitudes/s, errores &lt; 1 %</p>
+</div>
+<div data-build-in="rise 2" style="position:absolute;left:128px;top:584px;width:398px;height:264px;display:flex;flex-direction:column;gap:12px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:28px">
+<div style="width:40px;height:4px;background:#F59E0B;border-radius:2px"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;color:#94A3B8">CONMUTACIÓN</p>
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#F59E0B">≤ 10 s</p>
+<p style="font-size:24px;line-height:1.35;color:#C7D2E3">Conmutación de la IP virtual del API</p>
+</div>
+<div data-build-in="rise 2" style="position:absolute;left:550px;top:584px;width:398px;height:264px;display:flex;flex-direction:column;gap:12px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:28px">
+<div style="width:40px;height:4px;background:#F59E0B;border-radius:2px"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;color:#94A3B8">ESCALADO</p>
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#F59E0B">3 → 10</p>
+<p style="font-size:24px;line-height:1.35;color:#C7D2E3">Réplicas del HPA en ≤ 3 min con carga 4×</p>
+</div>
+<div data-build-in="rise 2" style="position:absolute;left:972px;top:584px;width:398px;height:264px;display:flex;flex-direction:column;gap:12px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:28px">
+<div style="width:40px;height:4px;background:#F59E0B;border-radius:2px"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;color:#94A3B8">CAPACIDAD</p>
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#F59E0B">N+1</p>
+<p style="font-size:24px;line-height:1.35;color:#C7D2E3">Capacidad con un worker o un host caído</p>
+</div>
+<div data-build-in="rise 2" style="position:absolute;left:1394px;top:584px;width:398px;height:264px;display:flex;flex-direction:column;gap:12px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:28px">
+<div style="width:40px;height:4px;background:#F59E0B;border-radius:2px"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;color:#94A3B8">SEGURIDAD</p>
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#F59E0B">≥ 90 %</p>
+<p style="font-size:24px;line-height:1.35;color:#C7D2E3">Controles CIS aplicables en PASS (kube-bench)</p>
+</div>
+<p style="position:absolute;left:128px;top:880px;width:1664px;font-size:24px;line-height:1.4;color:#94A3B8">16 requerimientos funcionales y 21 no funcionales, cada uno con una prueba asociada.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">05 / 15</p>
+<aside>Los requerimientos no funcionales son los criterios de aceptación de la III Unidad. La referencia de despliegue de 10 minutos viene de Aguilar y García (2024). Al presentar: primer clic, metas de disponibilidad y datos (azul); segundo clic, metas de conmutación, escalado, capacidad y seguridad (naranja).</aside>
+</section>
+<section id="arch" data-transition="fade" style="background:#0B1220;color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">// DISEÑO</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-1px;color:#F1F5FB">Arquitectura lógica</h2>
+</div>
+<img src="../diagramas/01_arquitectura_general.png" alt="Arquitectura lógica general: capa de acceso, plano de control, nodos de trabajo, servicios de plataforma y bloques transversales" style="position:absolute;left:128px;top:296px;width:969px;height:620px;object-fit:contain;background:#F4F7FB;border:1px solid #24334F;border-radius:16px">
+<div data-build-in="rise 1" style="position:absolute;left:1137px;top:296px;width:655px;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:12px;padding:20px 24px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:2px;color:#22D3EE">01 · ACCESO</p>
+<p style="font-size:24px;line-height:1.35;color:#C7D2E3">VIP del API (HAProxy y Keepalived) y VIP de servicios (MetalLB y Traefik)</p>
+</div>
+<div data-build-in="rise 2" style="position:absolute;left:1137px;top:452px;width:655px;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:12px;padding:20px 24px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:2px;color:#22D3EE">02 · CONTROL</p>
+<p style="font-size:24px;line-height:1.35;color:#C7D2E3">3 nodos de control con etcd apilado</p>
+</div>
+<div data-build-in="rise 3" style="position:absolute;left:1137px;top:608px;width:655px;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:12px;padding:20px 24px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:2px;color:#22D3EE">03 · CÓMPUTO</p>
+<p style="font-size:24px;line-height:1.35;color:#C7D2E3">3 workers con Cilium, Longhorn y CloudNativePG</p>
+</div>
+<div data-build-in="rise 4" style="position:absolute;left:1137px;top:764px;width:655px;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:12px;padding:20px 24px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:2px;color:#22D3EE">04 · TRANSVERSAL</p>
+<p style="font-size:24px;line-height:1.35;color:#C7D2E3">Observabilidad, seguridad, automatización y respaldo</p>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">06 / 15</p>
+<aside>Kubernetes con kubeadm y containerd sobre Rocky Linux 9. etcd apilado de tres miembros: tolera una falla y evita la latencia de un clúster etcd más grande (Jeffery et al., 2021). Al presentar: cada clic revela una capa, de arriba hacia abajo, mientras se señala en el diagrama.</aside>
+</section>
+<section id="ha" data-transition="fade" style="background:#0E1626;color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">// DISEÑO</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-1px;color:#F1F5FB">Alta disponibilidad ante fallas</h2>
+</div>
+<table style="font-size:24px;font-family:'Inter', Arial, sans-serif;color:#C7D2E3;border:1px solid #24334F">
+<tr style="background:#141F36"><th style="width:27%;text-align:left;color:#22D3EE">Falla</th><th style="width:27%;text-align:left;color:#22D3EE">Efecto</th><th style="width:35%;text-align:left;color:#22D3EE">Recuperación</th><th style="width:11%;text-align:left;color:#22D3EE">Tiempo</th></tr>
+<tr><td style="color:#F1F5FB">Cae lb01 (balanceador activo)</td><td>Ninguno</td><td>Keepalived mueve la VIP a lb02</td><td style="color:#22D3EE">≤ 10 s</td></tr>
+<tr><td style="color:#F1F5FB">Un nodo de control</td><td>API disponible</td><td>HAProxy lo excluye; etcd reelige líder</td><td style="color:#22D3EE">≤ 10 s</td></tr>
+<tr><td style="color:#F1F5FB">Un nodo de trabajo</td><td>Pods reprogramados</td><td>tolerationSeconds y planificador</td><td style="color:#22D3EE">≤ 5 min</td></tr>
+<tr><td style="color:#F1F5FB">Un host físico</td><td>Sin corte del servicio</td><td>Réplicas en los otros hosts (N+1)</td><td style="color:#22D3EE">Sin corte</td></tr>
+<tr><td style="color:#F1F5FB">Primario de PostgreSQL</td><td>Escrituras en pausa</td><td>CloudNativePG promueve una réplica</td><td style="color:#22D3EE">≤ 30 s</td></tr>
+<tr><td style="color:#F1F5FB">Dos nodos de control</td><td>API de solo lectura; apps siguen</td><td>Restaurar el nodo o el snapshot de etcd</td><td style="color:#22D3EE">≤ 4 h</td></tr>
+</table>
+<iframe sandbox="allow-scripts" srcdoc="&lt;style&gt;html,body{margin:0;height:100%;overflow:hidden;background:transparent}body{position:relative;font:24px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#C7D2E3}.n{position:absolute;box-sizing:border-box;border:2px solid #2A3B5C;background:#111B30;border-radius:14px;padding:10px 14px;transition:border-color .5s,background .5s}.t{color:#F1F5FB;white-space:nowrap}.s{margin-top:4px;color:#94A3B8;white-space:nowrap}.dot{position:absolute;border-radius:50%;background:#22D3EE;box-shadow:0 0 10px #22D3EE;pointer-events:none}.down{border-color:#F59E0B;background:#2A1D0C}.vip{position:absolute;box-sizing:border-box;width:230px;height:44px;border-radius:22px;background:#0F2A3D;border:2px solid #22D3EE;color:#E6FAFE;text-align:center;line-height:40px;white-space:nowrap}.cap{position:absolute;font:24px system-ui,-apple-system,&#x27;Segoe UI&#x27;,Roboto,sans-serif;color:#AEBBD0;white-space:nowrap}.big{position:absolute;font:600 44px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#22D3EE}.sp{font:24px system-ui,-apple-system,&#x27;Segoe UI&#x27;,Roboto,sans-serif;padding:6px 10px;border-radius:8px;border:1px solid #2A3B5C;color:#7C8BA1;white-space:nowrap;transition:background .3s,color .3s,border-color .3s}.sp.cur{background:#22D3EE;border-color:#22D3EE;color:#0B1220;font-weight:600}.sp.warn{background:#F59E0B;border-color:#F59E0B;color:#0B1220;font-weight:600}.sp.done{color:#C7D2E3;border-color:#2F6577}&lt;/style&gt;
+&lt;svg id=&quot;g&quot; width=&quot;1664&quot; height=&quot;224&quot; style=&quot;position:absolute;left:0;top:0&quot;&gt;&lt;/svg&gt;
+&lt;script&gt;
+var B=document.body,NS=&#x27;http://www.w3.org/2000/svg&#x27;,G=document.getElementById(&#x27;g&#x27;),dots=[],last=performance.now();
+function box(c,x,y,w,h){var d=document.createElement(&#x27;div&#x27;);d.className=c;d.style.left=x+&#x27;px&#x27;;d.style.top=y+&#x27;px&#x27;;if(w)d.style.width=w+&#x27;px&#x27;;if(h)d.style.height=h+&#x27;px&#x27;;B.appendChild(d);return d}
+function tx(p,c,s){var d=document.createElement(&#x27;div&#x27;);d.className=c;d.textContent=s;p.appendChild(d);return d}
+function ln(x1,y1,x2,y2,dash){var l=document.createElementNS(NS,&#x27;line&#x27;);l.setAttribute(&#x27;x1&#x27;,x1);l.setAttribute(&#x27;y1&#x27;,y1);l.setAttribute(&#x27;x2&#x27;,x2);l.setAttribute(&#x27;y2&#x27;,y2);l.setAttribute(&#x27;stroke&#x27;,&#x27;#2A3B5C&#x27;);l.setAttribute(&#x27;stroke-width&#x27;,&#x27;2&#x27;);if(dash)l.setAttribute(&#x27;stroke-dasharray&#x27;,&#x27;6 6&#x27;);G.appendChild(l);return l}
+function shoot(p,o){o=o||{};if(dots.length&gt;80)return null;var d=document.createElement(&#x27;div&#x27;);d.className=&#x27;dot&#x27;;var z=o.size||12;d.style.width=z+&#x27;px&#x27;;d.style.height=z+&#x27;px&#x27;;d.style.margin=(-z/2)+&#x27;px 0 0 &#x27;+(-z/2)+&#x27;px&#x27;;if(o.col){d.style.background=o.col;d.style.boxShadow=&#x27;0 0 10px &#x27;+o.col}B.appendChild(d);var seg=[],L=0;for(var i=2;i!==p.length;i+=2){var l=Math.hypot(p[i]-p[i-2],p[i+1]-p[i-1]);seg.push(l);L+=l}var q={e:d,p:p,seg:seg,L:L,s:0,v:o.v||260,end:o.end};dots.push(q);put(q);return q}
+function put(q){var s=q.s,i=0;while(i+1!==q.seg.length){if(s&gt;q.seg[i]){s-=q.seg[i];i++}else break}var f=q.seg[i]?Math.min(1,s/q.seg[i]):0,p=q.p;q.e.style.left=(p[2*i]+(p[2*i+2]-p[2*i])*f)+&#x27;px&#x27;;q.e.style.top=(p[2*i+1]+(p[2*i+3]-p[2*i+1])*f)+&#x27;px&#x27;}
+function step(dt){for(var k=dots.length-1;k&gt;=0;k--){var q=dots[k];q.s+=q.v*dt;if(q.s&gt;=q.L){q.e.remove();dots.splice(k,1);if(q.end)q.end()}else put(q)}}
+function seq(list){var i=0;function nx(){var s=list[i];i=(i+1)%list.length;s[1]();setTimeout(nx,s[0])}nx()}
+function steps(x,y,names){var w=document.createElement(&#x27;div&#x27;);w.style.cssText=&#x27;position:absolute;left:&#x27;+x+&#x27;px;top:&#x27;+y+&#x27;px;display:flex;gap:8px&#x27;;var a=[];for(var i=0;i!==names.length;i++){var p=document.createElement(&#x27;div&#x27;);p.className=&#x27;sp&#x27;;p.textContent=(i+1)+&#x27; &#x27;+names[i];w.appendChild(p);a.push(p)}B.appendChild(w);return function(k,warn){for(var i=0;i!==a.length;i++)a[i].className=&#x27;sp&#x27;+((i===k)?(warn?&#x27; warn&#x27;:&#x27; cur&#x27;):((k&gt;i)?&#x27; done&#x27;:&#x27;&#x27;))}}
+var LBC=[50,174],CPC=[30,112,194],A=0,Dn=-1,by=28,bt=28,run=false,tv=0;
+for(var a=0;a!==2;a++)for(var b=0;b!==3;b++)ln(700,LBC[a],820,CPC[b],1);
+ln(590,92,590,132,1);
+var l1=ln(170,112,210,50),l2=ln(440,50,480,50);l1.setAttribute(&#x27;stroke&#x27;,&#x27;#22D3EE&#x27;);l2.setAttribute(&#x27;stroke&#x27;,&#x27;#22D3EE&#x27;);
+var cl=box(&#x27;n&#x27;,0,72,170,80);tx(cl,&#x27;t&#x27;,&#x27;kubectl&#x27;);tx(cl,&#x27;s&#x27;,&#x27;cliente&#x27;);
+var lbs=[],ls=[];for(var i=0;i!==2;i++){var x=box(&#x27;n&#x27;,480,i?132:8,220,84);tx(x,&#x27;t&#x27;,&#x27;lb0&#x27;+(i+1));ls.push(tx(x,&#x27;s&#x27;,&#x27;&#x27;));lbs.push(x)}
+var vl=box(&#x27;cap&#x27;,604,96);vl.style.font=&#x27;24px ui-monospace,Menlo,Consolas,monospace&#x27;;vl.style.color=&#x27;#7C8BA1&#x27;;vl.textContent=&#x27;VRRP&#x27;;
+for(var j=0;j!==3;j++){var c=box(&#x27;n&#x27;,820,CPC[j]-28,170,56);tx(c,&#x27;t&#x27;,&#x27;cp-0&#x27;+(j+1))}
+var vb=box(&#x27;vip&#x27;,210,28);vb.textContent=&#x27;VIP 10.10.20.10&#x27;;
+var set=steps(1040,0,[&#x27;Normal&#x27;,&#x27;Falla&#x27;,&#x27;Detección&#x27;,&#x27;Conmutación&#x27;]);
+var tl=box(&#x27;cap&#x27;,1040,62);tl.textContent=&#x27;Interrupción (simulada):&#x27;;
+var bg=box(&#x27;big&#x27;,1340,52);
+var L1=box(&#x27;cap&#x27;,1040,116),L2=box(&#x27;cap&#x27;,1040,152),L3=box(&#x27;cap&#x27;,1040,188);L1.style.color=&#x27;#F1F5FB&#x27;;
+function say(a,b,c){L1.textContent=a;L2.textContent=b||&#x27;&#x27;;L3.textContent=c||&#x27;&#x27;}
+function fmt(v){return v.toFixed(1).replace(&#x27;.&#x27;,&#x27;,&#x27;)+&#x27; s&#x27;}
+function nm(i){return &#x27;lb0&#x27;+(i+1)}
+function R(){for(var i=0;i!==2;i++){if(i===Dn){lbs[i].className=&#x27;n down&#x27;;ls[i].textContent=&#x27;caído&#x27;;ls[i].style.color=&#x27;#F59E0B&#x27;}else{lbs[i].className=&#x27;n&#x27;;ls[i].textContent=(i===A)?&#x27;MASTER&#x27;:&#x27;BACKUP&#x27;;ls[i].style.color=(i===A)?&#x27;#22D3EE&#x27;:&#x27;#94A3B8&#x27;}}}
+seq([
+[4500,function(){Dn=-1;run=false;tv=0;R();set(0);say(nm(A)+&#x27; es MASTER: tiene la VIP y todo el tráfico.&#x27;,&#x27;Cada segundo envía un anuncio VRRP a &#x27;+nm(1-A)+&#x27;.&#x27;,&#x27;&#x27;)}],
+[1500,function(){Dn=A;run=true;R();set(1,true);say(&#x27;Cae &#x27;+nm(A)+&#x27;: las peticiones a la VIP se pierden&#x27;,&#x27;(puntos naranjas) y cesan los anuncios VRRP.&#x27;,&#x27;&#x27;)}],
+[1000,function(){set(2,true);say(nm(1-A)+&#x27; no recibe anuncios: 1 de 3 perdidos…&#x27;,&#x27;Con 3 anuncios perdidos asume que &#x27;+nm(A)+&#x27; cayó.&#x27;,&#x27;&#x27;)}],
+[1000,function(){L1.textContent=nm(1-A)+&#x27; no recibe anuncios: 2 de 3 perdidos…&#x27;}],
+[1000,function(){L1.textContent=nm(1-A)+&#x27; no recibe anuncios: 3 de 3 perdidos&#x27;}],
+[4500,function(){A=1-A;bt=LBC[A]-22;run=false;R();set(3);say(nm(A)+&#x27; pasa a MASTER y toma la VIP.&#x27;,&#x27;Interrupción ≈ &#x27;+fmt(tv)+&#x27; · meta de PH-01: ≤ 10 s&#x27;,&#x27;El tráfico vuelve sin cambiar nada en el cliente.&#x27;)}],
+[3500,function(){var b=1-A;Dn=-1;R();set(4);say(nm(b)+&#x27; vuelve como BACKUP; la VIP se queda&#x27;,&#x27;en &#x27;+nm(A)+&#x27; para evitar otra interrupción.&#x27;,&#x27;&#x27;)}]
+]);
+setInterval(function(){if(Dn===A)return;shoot(A===0?[590,92,590,132]:[590,132,590,92],{size:10,col:&#x27;#A5F3FC&#x27;,v:60})},1000);
+setInterval(function(){var y=by+22,ly=LBC[A],cy=CPC[Math.floor(Math.random()*3)];if(Dn===A){shoot([170,112,210,y,440,y],{v:380,col:&#x27;#F59E0B&#x27;})}else{shoot([170,112,210,y,440,y,480,ly,700,ly,820,cy],{v:420})}},260);
+function fr(t){var dt=Math.min(0.05,(t-last)/1000);last=t;if(run)tv+=dt;bg.textContent=fmt(tv);bg.style.color=run?&#x27;#F59E0B&#x27;:&#x27;#22D3EE&#x27;;if(Math.abs(bt-by)&gt;0.5){by+=(bt-by)*Math.min(1,dt*5)}else by=bt;vb.style.top=by+&#x27;px&#x27;;l1.setAttribute(&#x27;y2&#x27;,by+22);l2.setAttribute(&#x27;y1&#x27;,by+22);l2.setAttribute(&#x27;y2&#x27;,LBC[A]);step(dt);requestAnimationFrame(fr)}
+requestAnimationFrame(fr);
+&lt;/script&gt;" style="position:absolute;left:128px;top:690px;width:1664px;height:224px;border:0;background:transparent"></iframe>
+<p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">07 / 15</p>
+<aside>Cada fila corresponde a una prueba del plan (PH-01 a PH-06). Reglas de ubicación: tres o más réplicas repartidas por host, PodDisruptionBudget con minAvailable 2, base de datos con un primario y dos réplicas, y requests y limits obligatorios. El switch y el firewall únicos son un riesgo aceptado, con equipo de repuesto en frío. La animación inferior simula la prueba PH-01 en 4 pasos: 1) el balanceador MASTER tiene la VIP y envía anuncios VRRP al BACKUP (puntos celestes entre ambos); 2) el MASTER cae, las peticiones se pierden (puntos naranjas) y el cronómetro empieza; 3) el BACKUP cuenta tres anuncios perdidos; 4) toma la VIP, el tráfico vuelve y el cronómetro se detiene dentro de la meta. Cuando el balanceador caído vuelve, queda como BACKUP para no provocar un segundo corte. En la siguiente vuelta fallan los roles invertidos. Es una simulación ilustrativa, no una medición.</aside>
+</section>
+<section id="infra" data-transition="fade" style="background:#0B1220;color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">// DISEÑO</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-1px;color:#F1F5FB">Componentes y precios de mercado</h2>
+</div>
+<div style="display:flex;gap:40px;align-items:center">
+<img src="../diagramas/08_componentes.png" alt="Componentes de referencia: servidor Dell, switch MikroTik, firewall Protectli, UPS APC, Proxmox y Kubernetes con sus precios" style="width:875px;height:560px;object-fit:contain;background:#FFFFFF;border:1px solid #24334F;border-radius:16px">
+<table style="font-size:24px;font-family:'Inter', Arial, sans-serif;color:#C7D2E3;border:1px solid #24334F">
+<tr style="background:#141F36"><th style="width:58%;text-align:left;color:#22D3EE">Componente</th><th style="width:42%;text-align:left;color:#22D3EE">Precio</th></tr>
+<tr><td style="color:#F1F5FB">Servidor Dell R660xs ×3</td><td>US$ 9 499 c/u</td></tr>
+<tr><td style="color:#F1F5FB">Switch MikroTik 24×10G</td><td>US$ 499</td></tr>
+<tr><td style="color:#F1F5FB">Firewall Protectli FW4C</td><td>US$ 299</td></tr>
+<tr><td style="color:#F1F5FB">UPS APC de 3 kVA</td><td>US$ 3 496</td></tr>
+<tr><td style="color:#F1F5FB">NAS Synology + 4 discos</td><td>US$ 2 430</td></tr>
+<tr><td style="color:#F1F5FB">Proxmox VE Basic ×3</td><td>€ 370 por socket al año</td></tr>
+</table>
+</div>
+<p style="font-size:24px;line-height:1.4;color:#94A3B8">Precios de mercado consultados el 11/11/2026; las fuentes están en el informe (Sección 12.2).</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">08 / 15</p>
+<aside>Precios de mercado consultados en internet el 11/11/2026: Dell, MikroTik, Protectli, APC, Synology, Seagate y Proxmox; el desglose con IGV (18 %) y flete, y las fuentes, están en la Sección 12.2 del informe. Cada host aloja como máximo un nodo de control, un worker y un balanceador. Perfil de laboratorio para la III Unidad: 9 máquinas virtuales, 15 vCPU y unos 24 GB en una estación de 32 GB o más.</aside>
+</section>
+<section id="network" data-transition="fade" style="background:#0E1626;color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">// DISEÑO</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-1px;color:#F1F5FB">Diseño de red</h2>
+</div>
+<div style="display:flex;gap:40px;align-items:center">
+<img src="../diagramas/02_topologia_red.png" alt="Topología de red con firewall, switch core, tres hosts y plan de VLAN" style="width:899px;height:620px;object-fit:contain;background:#F4F7FB;border:1px solid #24334F;border-radius:16px">
+<div style="flex:1;display:flex;flex-direction:column;gap:28px">
+<table style="font-size:24px;font-family:'JetBrains Mono', 'Courier New', monospace;color:#C7D2E3;border:1px solid #24334F">
+<tr style="background:#141F36"><th style="width:18%;text-align:left;color:#22D3EE">VLAN</th><th style="width:40%;text-align:left;color:#22D3EE">Uso</th><th style="width:42%;text-align:left;color:#22D3EE">Subred</th></tr>
+<tr><td style="color:#F1F5FB">10</td><td>Gestión</td><td>10.10.10.0/24</td></tr>
+<tr><td style="color:#F1F5FB">20</td><td>Control</td><td>10.10.20.0/24</td></tr>
+<tr><td style="color:#F1F5FB">30</td><td>Workers</td><td>10.10.30.0/24</td></tr>
+<tr><td style="color:#F1F5FB">40</td><td>Datos</td><td>10.10.40.0/24</td></tr>
+<tr><td style="color:#F1F5FB">50</td><td>Servicios</td><td>10.10.50.0/24</td></tr>
+<tr><td style="color:#F1F5FB">60</td><td>Respaldo</td><td>10.10.60.0/24</td></tr>
+<tr><td style="color:#F1F5FB">100</td><td>Usuarios</td><td>10.10.100.0/23</td></tr>
+</table>
+<p style="font-size:24px;line-height:1.4;color:#C7D2E3">Firewall con denegación por defecto; acceso remoto solo por VPN con MFA y bastión.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">09 / 15</p>
+<aside>El firewall es el gateway de todas las VLAN. El API (6443), el kubelet (10250), etcd (2379-2380) y la consola de Proxmox (8006) nunca se publican en Internet. La IP virtual del API es 10.10.20.10 y la de servicios 10.10.50.100; los pods usan 10.244.0.0/16.</aside>
+</section>
+<section id="security" data-transition="fade" style="background:#0B1220;color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">// DISEÑO</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-1px;color:#F1F5FB">Seguridad en profundidad</h2>
+</div>
+<div style="display:flex;gap:40px;align-items:center">
+<img src="../diagramas/03_seguridad.png" alt="Defensa en profundidad según el modelo 4C y puntos de control de una petición" style="width:938px;height:600px;object-fit:contain;background:#F4F7FB;border:1px solid #24334F;border-radius:16px">
+<div style="flex:1;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;gap:20px">
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#F59E0B">14</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">riesgos valorados</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#60A5FA">11</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">amenazas (STRIDE)</p>
+</div>
+</div>
+<ul style="font-size:26px;line-height:1.45;color:#C7D2E3">
+<li>Los 3 riesgos críticos iniciales bajan a nivel medio o bajo</li>
+<li>RBAC mínimo, Pod Security Admission y NetworkPolicy</li>
+<li>Aceptados: switch único y falla bizantina</li>
+</ul>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">10 / 15</p>
+<aside>Modelo 4C: nube o infraestructura, clúster, contenedor y código (Simón, 2021). La ruta de una petición tiene seis puntos de control: usuario, firewall, Ingress, NetworkPolicy, pod y base de datos. Raft no cubre fallas bizantinas (Diouf et al., 2020), por eso es un riesgo aceptado con hardening y auditoría.</aside>
+</section>
+<section id="ops" data-transition="fade" style="background:#0E1626;color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">// OPERACIÓN</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-1px;color:#F1F5FB">Operación, respaldo y monitoreo</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:28px 32px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:2px;color:#22D3EE">01 · RESPALDO</p>
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;color:#F1F5FB">Respaldo 3-2-1</h3>
+<ul style="font-size:24px;line-height:1.35;color:#C7D2E3">
+<li>Snapshot de etcd cada 6 h</li>
+<li>Velero a diario hacia MinIO</li>
+<li>WAL de PostgreSQL continuo (RPO ≤ 5 min)</li>
+<li>Copia fuera de sitio semanal</li>
+</ul>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:28px 32px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:2px;color:#F59E0B">02 · PROCESOS</p>
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;color:#F1F5FB">Modelo operativo</h3>
+<ul style="font-size:24px;line-height:1.35;color:#C7D2E3">
+<li>Roles definidos con matriz RACI</li>
+<li>Parches mensuales y actualización trimestral</li>
+<li>Pruebas de restauración trimestrales</li>
+<li>Incidente P1: respuesta en 15 min, resolución en 2 h</li>
+</ul>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:28px 32px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:2px;color:#60A5FA">03 · VISIBILIDAD</p>
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;color:#F1F5FB">Observabilidad</h3>
+<ul style="font-size:24px;line-height:1.35;color:#C7D2E3">
+<li>Prometheus, Alertmanager y Grafana</li>
+<li>Loki para registros y Hubble para flujos de red</li>
+<li>10 alertas mínimas por correo y Telegram</li>
+<li>Auditoría de la API retenida 90 días</li>
+</ul>
+</div>
+</div>
+<iframe sandbox="allow-scripts" srcdoc="&lt;style&gt;html,body{margin:0;height:100%;overflow:hidden;background:transparent}body{position:relative;font:24px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#C7D2E3}.n{position:absolute;box-sizing:border-box;border:2px solid #2A3B5C;background:#111B30;border-radius:14px;padding:12px 14px;transition:border-color .3s,background .4s,box-shadow .3s}.t{color:#F1F5FB;white-space:nowrap}.s{margin-top:4px;color:#94A3B8;white-space:nowrap}.dot{position:absolute;border-radius:50%;background:#22D3EE;box-shadow:0 0 10px #22D3EE;pointer-events:none}.down{border-color:#F59E0B;background:#2A1D0C}.src{padding:14px 14px}.fl{border-color:#22D3EE;box-shadow:0 0 18px rgba(34,211,238,.45)}.fo{border-color:#F59E0B;box-shadow:0 0 18px rgba(245,158,11,.45)}.cap{position:absolute;font:24px system-ui,-apple-system,&#x27;Segoe UI&#x27;,Roboto,sans-serif;color:#AEBBD0;white-space:nowrap}.sg{position:absolute;top:42px;width:128px;height:6px;border-radius:3px;background:#2A3B5C;transition:background .3s}&lt;/style&gt;
+&lt;svg id=&quot;g&quot; width=&quot;1664&quot; height=&quot;224&quot; style=&quot;position:absolute;left:0;top:0&quot;&gt;&lt;/svg&gt;
+&lt;script&gt;
+var B=document.body,NS=&#x27;http://www.w3.org/2000/svg&#x27;,G=document.getElementById(&#x27;g&#x27;),dots=[],last=performance.now();
+function box(c,x,y,w,h){var d=document.createElement(&#x27;div&#x27;);d.className=c;d.style.left=x+&#x27;px&#x27;;d.style.top=y+&#x27;px&#x27;;if(w)d.style.width=w+&#x27;px&#x27;;if(h)d.style.height=h+&#x27;px&#x27;;B.appendChild(d);return d}
+function tx(p,c,s){var d=document.createElement(&#x27;div&#x27;);d.className=c;d.textContent=s;p.appendChild(d);return d}
+function ln(x1,y1,x2,y2,dash){var l=document.createElementNS(NS,&#x27;line&#x27;);l.setAttribute(&#x27;x1&#x27;,x1);l.setAttribute(&#x27;y1&#x27;,y1);l.setAttribute(&#x27;x2&#x27;,x2);l.setAttribute(&#x27;y2&#x27;,y2);l.setAttribute(&#x27;stroke&#x27;,&#x27;#2A3B5C&#x27;);l.setAttribute(&#x27;stroke-width&#x27;,&#x27;2&#x27;);if(dash)l.setAttribute(&#x27;stroke-dasharray&#x27;,&#x27;6 6&#x27;);G.appendChild(l);return l}
+function shoot(p,o){o=o||{};if(dots.length&gt;80)return null;var d=document.createElement(&#x27;div&#x27;);d.className=&#x27;dot&#x27;;var z=o.size||12;d.style.width=z+&#x27;px&#x27;;d.style.height=z+&#x27;px&#x27;;d.style.margin=(-z/2)+&#x27;px 0 0 &#x27;+(-z/2)+&#x27;px&#x27;;if(z&gt;14)d.style.borderRadius=&#x27;5px&#x27;;if(o.col){d.style.background=o.col;d.style.boxShadow=&#x27;0 0 10px &#x27;+o.col}B.appendChild(d);var seg=[],L=0;for(var i=2;i!==p.length;i+=2){var l=Math.hypot(p[i]-p[i-2],p[i+1]-p[i-1]);seg.push(l);L+=l}var q={e:d,p:p,seg:seg,L:L,s:0,v:o.v||260,end:o.end};dots.push(q);put(q);return q}
+function put(q){var s=q.s,i=0;while(i+1!==q.seg.length){if(s&gt;q.seg[i]){s-=q.seg[i];i++}else break}var f=q.seg[i]?Math.min(1,s/q.seg[i]):0,p=q.p;q.e.style.left=(p[2*i]+(p[2*i+2]-p[2*i])*f)+&#x27;px&#x27;;q.e.style.top=(p[2*i+1]+(p[2*i+3]-p[2*i+1])*f)+&#x27;px&#x27;}
+function step(dt){for(var k=dots.length-1;k&gt;=0;k--){var q=dots[k];q.s+=q.v*dt;if(q.s&gt;=q.L){q.e.remove();dots.splice(k,1);if(q.end)q.end()}else put(q)}}
+function seq(list){var i=0;function nx(){var s=list[i];i=(i+1)%list.length;s[1]();setTimeout(nx,s[0])}nx()}
+var SY=[34,112,190],SN=[&#x27;etcd · cada 6 h&#x27;,&#x27;Velero · diario&#x27;,&#x27;PostgreSQL (WAL)&#x27;],sb=[],st=[],obj=0,off=0,lw=performance.now(),dis=false,frz=false;
+for(var i=0;i!==3;i++){ln(300,SY[i],400,112);var s=box(&#x27;n src&#x27;,0,SY[i]-30,300,60);st.push(tx(s,&#x27;t&#x27;,SN[i]));sb.push(s)}
+ln(700,112,800,112,1);
+var m=box(&#x27;n&#x27;,400,42,300,140);tx(m,&#x27;t&#x27;,&#x27;MinIO · local&#x27;);var mo=tx(m,&#x27;s&#x27;,&#x27;objetos: 0&#x27;);var mw=tx(m,&#x27;s&#x27;,&#x27;WAL: hace 0,0 s&#x27;);
+var o=box(&#x27;n&#x27;,800,52,260,120);tx(o,&#x27;t&#x27;,&#x27;Fuera de sitio&#x27;);var oo=tx(o,&#x27;s&#x27;,&#x27;copias: 0&#x27;);
+var hd=box(&#x27;cap&#x27;,1100,0);hd.style.font=&#x27;600 24px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace&#x27;;
+var sg=[];for(var k=0;k!==4;k++){var g2=box(&#x27;sg&#x27;,1100+k*136,42);sg.push(g2)}
+var L1=box(&#x27;cap&#x27;,1100,62),L2=box(&#x27;cap&#x27;,1100,98),L3=box(&#x27;cap&#x27;,1100,134),L4=box(&#x27;cap&#x27;,1100,170);L1.style.color=&#x27;#F1F5FB&#x27;;
+function say(a,b,c,d){L1.textContent=a;L2.textContent=b||&#x27;&#x27;;L3.textContent=c||&#x27;&#x27;;L4.textContent=d||&#x27;&#x27;}
+function P(i,name,warn){hd.textContent=&#x27;PASO &#x27;+(i+1)+&#x27; / 4 · &#x27;+name;hd.style.color=warn?&#x27;#F59E0B&#x27;:&#x27;#22D3EE&#x27;;for(var k=0;k!==4;k++)sg[k].style.background=(k===i)?(warn?&#x27;#F59E0B&#x27;:&#x27;#22D3EE&#x27;):((i&gt;k)?&#x27;#2F6577&#x27;:&#x27;#2A3B5C&#x27;)}
+function fmt(v){return v.toFixed(1).replace(&#x27;.&#x27;,&#x27;,&#x27;)+&#x27; s&#x27;}
+function hit(){obj++;mo.textContent=&#x27;objetos: &#x27;+obj;m.classList.add(&#x27;fl&#x27;);setTimeout(function(){m.classList.remove(&#x27;fl&#x27;)},250)}
+function offhit(){off++;oo.textContent=&#x27;copias: &#x27;+off;o.classList.add(&#x27;fo&#x27;);setTimeout(function(){o.classList.remove(&#x27;fo&#x27;)},400)}
+function db(ok){sb[2].className=ok?&#x27;n src&#x27;:&#x27;n src down&#x27;;st[2].textContent=ok?&#x27;PostgreSQL (WAL)&#x27;:&#x27;PostgreSQL · caído&#x27;}
+seq([
+[6500,function(){dis=false;frz=false;db(true);P(0,&#x27;RESPALDO CONTINUO&#x27;);say(&#x27;El WAL de PostgreSQL se copia sin pausa&#x27;,&#x27;(puntos): se pierden como máx. 5 min (RPO).&#x27;,&#x27;etcd y Velero envían copias periódicas&#x27;,&#x27;(bloques). Tiempos acelerados.&#x27;)}],
+[4500,function(){P(1,&#x27;FUERA DE SITIO&#x27;);say(&#x27;Una copia sale del centro de datos:&#x27;,&#x27;3 copias, en 2 medios, 1 fuera de sitio.&#x27;,&#x27;Protege ante incendio o robo del sitio.&#x27;,&#x27;&#x27;);shoot([700,112,800,112],{size:34,col:&#x27;#F59E0B&#x27;,v:110,end:offhit})}],
+[4500,function(){dis=true;db(false);P(2,&#x27;DESASTRE&#x27;,true);say(&#x27;Falla grave: se pierde la base de datos.&#x27;,&#x27;En MinIO queda el WAL de hace segundos:&#x27;,&#x27;esa es toda la pérdida de datos (RPO).&#x27;,&#x27;&#x27;)}],
+[3000,function(){frz=true;P(3,&#x27;RESTAURACIÓN&#x27;);say(&#x27;Se restaura la copia y se reaplica el WAL.&#x27;,&#x27;Meta: servicio de vuelta en ≤ 30 min (RTO).&#x27;,&#x27;&#x27;,&#x27;&#x27;);for(var k=0;k!==4;k++)setTimeout(function(){shoot([400,112,300,190],{size:22,col:&#x27;#22D3EE&#x27;,v:170})},k*600)}],
+[3000,function(){dis=false;db(true);L3.textContent=&#x27;Base de datos restaurada y en línea.&#x27;;L4.textContent=&#x27;El ciclo de respaldo continúa.&#x27;}]
+]);
+setInterval(function(){if(dis)return;shoot([300,190,400,112],{size:10,v:240,end:function(){hit();lw=performance.now()}})},260);
+setInterval(function(){shoot([300,34,400,112],{size:22,col:&#x27;#60A5FA&#x27;,v:200,end:hit})},2600);
+setInterval(function(){shoot([300,112,400,112],{size:28,col:&#x27;#A5F3FC&#x27;,v:160,end:hit})},4200);
+function fr(t){var dt=Math.min(0.05,(t-last)/1000);last=t;if(!frz){mw.textContent=&#x27;WAL: hace &#x27;+fmt(Math.max(0,(t-lw)/1000));mw.style.color=dis?&#x27;#F59E0B&#x27;:&#x27;#94A3B8&#x27;}step(dt);requestAnimationFrame(fr)}
+requestAnimationFrame(fr);
+&lt;/script&gt;" style="position:absolute;left:128px;top:704px;width:1664px;height:224px;border:0;background:transparent"></iframe>
+<p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">11 / 15</p>
+<aside>Metas: RPO de 5 minutos para bases de datos, RTO de 30 minutos para restaurar un namespace y reconstrucción total en 4 horas. Hay seis procedimientos de respuesta para los escenarios principales y revisión posterior sin culpables. La animación inferior cuenta la historia completa del respaldo en 4 pasos: 1) el WAL de PostgreSQL fluye sin pausa hacia MinIO (puntos pequeños) y etcd y Velero envían copias periódicas (bloques); 2) una copia sale fuera de sitio, completando la regla 3-2-1; 3) se pierde la base de datos y el contador «WAL: hace…» de MinIO muestra cuántos datos quedarían sin respaldar, que es el RPO; 4) se restaura desde MinIO y se reaplica el WAL, con la meta de RTO. Los tiempos están acelerados para la demostración.</aside>
+</section>
+<section id="plan" data-transition="fade" style="background:#0B1220;color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">// OPERACIÓN</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-1px;color:#F1F5FB">Plan de implementación</h2>
+</div>
+<img src="../diagramas/06_cronograma.png" alt="Cronograma de 8 semanas con 11 actividades" style="position:absolute;left:128px;top:296px;width:1040px;height:470px;object-fit:contain;background:#F4F7FB;border:1px solid #24334F;border-radius:16px">
+<iframe sandbox="allow-scripts" srcdoc="&lt;style&gt;html,body{margin:0;height:100%;overflow:hidden;background:transparent}body{position:relative;font:24px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#C7D2E3}.c{position:absolute;top:0;width:100px;height:52px;box-sizing:border-box;border-radius:10px;border:2px solid #2A3B5C;background:#111B30;color:#C7D2E3;text-align:center;line-height:48px;font-weight:600;transition:background .35s,border-color .35s,color .35s,box-shadow .35s}.on{background:#22D3EE;border-color:#22D3EE;color:#0B1220}.cur{border-color:#22D3EE;color:#F1F5FB;box-shadow:0 0 18px rgba(34,211,238,.7)}.lab{position:absolute;left:0;top:11px;color:#94A3B8;white-space:nowrap}.tr{position:absolute;left:250px;top:25px;width:720px;height:2px;background:#2A3B5C}.pg{position:absolute;left:250px;top:24px;width:0;height:4px;background:#22D3EE;transition:width .6s}.l1{position:absolute;left:0;top:72px;font:26px system-ui,-apple-system,&#x27;Segoe UI&#x27;,Roboto,sans-serif;color:#F1F5FB;white-space:nowrap}.l2{position:absolute;left:0;top:112px;font:24px system-ui,-apple-system,&#x27;Segoe UI&#x27;,Roboto,sans-serif;color:#94A3B8;white-space:nowrap}&lt;/style&gt;
+&lt;div class=&quot;lab&quot;&gt;Ruta crítica&lt;/div&gt;&lt;div class=&quot;tr&quot;&gt;&lt;/div&gt;&lt;div class=&quot;pg&quot; id=&quot;pg&quot;&gt;&lt;/div&gt;&lt;div class=&quot;l1&quot; id=&quot;l1&quot;&gt;&lt;/div&gt;&lt;div class=&quot;l2&quot; id=&quot;l2&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+var N=[&#x27;A2&#x27;,&#x27;A3&#x27;,&#x27;A4&#x27;,&#x27;A5&#x27;,&#x27;A8&#x27;,&#x27;A10&#x27;,&#x27;A11&#x27;];
+var T=[&#x27;Infraestructura base (hipervisor, VLAN, VM, SO)&#x27;,&#x27;Balanceo del API (HAProxy + Keepalived)&#x27;,&#x27;Clúster Kubernetes HA (kubeadm, etcd apilado)&#x27;,&#x27;Servicios de plataforma (CNI, MetalLB, Ingress, Longhorn)&#x27;,&#x27;Aplicación de validación, BD HA, HPA y CI/CD&#x27;,&#x27;Ejecución del plan de pruebas&#x27;,&#x27;Documentación y sustentación&#x27;];
+var W=[&#x27;Semanas 1–2 · inicio de la ruta crítica&#x27;,&#x27;Semana 2 · empieza cuando avanza A2&#x27;,&#x27;Semanas 2–3 · depende de A3&#x27;,&#x27;Semanas 3–4 · depende de A4&#x27;,&#x27;Semanas 5–6 · depende de A5&#x27;,&#x27;Semana 7 · depende de A8&#x27;,&#x27;Semanas 7–8 · cierra el proyecto&#x27;];
+var ch=[],k=0,pg=document.getElementById(&#x27;pg&#x27;),l1=document.getElementById(&#x27;l1&#x27;),l2=document.getElementById(&#x27;l2&#x27;);
+for(var i=0;i!==N.length;i++){var d=document.createElement(&#x27;div&#x27;);d.className=&#x27;c&#x27;;d.style.left=(200+i*120)+&#x27;px&#x27;;d.textContent=N[i];document.body.appendChild(d);ch.push(d)}
+function R(){for(var j=0;j!==ch.length;j++){ch[j].className=(k&gt;j)?&#x27;c on&#x27;:((k===j)?&#x27;c cur&#x27;:&#x27;c&#x27;)}pg.style.width=Math.min(720,k*120)+&#x27;px&#x27;;if(k===N.length){l1.textContent=&#x27;Ruta crítica completa: 7 actividades sin holgura&#x27;;l2.textContent=&#x27;Si una se retrasa, se retrasa toda la entrega de la semana 8.&#x27;}else{l1.textContent=N[k]+&#x27; · &#x27;+T[k];l2.textContent=W[k]}}
+function tick(){R();if(k===N.length){setTimeout(function(){k=0;tick()},3500)}else{k++;setTimeout(tick,1900)}}
+k=0;R();setTimeout(function(){tick()},0);
+&lt;/script&gt;" style="position:absolute;left:128px;top:786px;width:1040px;height:150px;border:0;background:transparent"></iframe>
+<div style="position:absolute;left:1208px;top:296px;width:584px;display:flex;flex-direction:column;gap:28px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#22D3EE">8 semanas, 11 actividades</p>
+<ul style="font-size:26px;line-height:1.45;color:#C7D2E3">
+<li>6 integrantes, de 8 a 10 h por semana</li>
+<li>Laboratorio: 9 VM en una estación de 32 GB o más</li>
+<li>Todo el software es de código abierto</li>
+<li>Git como origen único, con Ansible y Helm</li>
+</ul>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">12 / 15</p>
+<aside>La III Unidad implementará exactamente lo diseñado en un laboratorio a escala con la topología lógica completa. Hitos: alta disponibilidad operativa en la semana 3, plataforma en la 4, seguridad y observabilidad en la 5, respaldo en la 6 y pruebas en la 7. No se añaden componentes ajenos al diseño sin justificación técnica documentada. La animación recorre la ruta crítica A2 → A3 → A4 → A5 → A8 → A10 → A11: en cada paso muestra el nombre de la actividad, sus semanas y de cuál depende; al final recuerda que estas 7 actividades no tienen holgura.</aside>
+</section>
+<section id="tests" data-transition="fade" style="background:#0E1626;color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">// OPERACIÓN</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-1px;color:#F1F5FB">Plan de pruebas: 27 casos</h2>
+</div>
+<div style="display:flex;gap:20px">
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#60A5FA">2</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">Infraestructura y red</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#60A5FA">7</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">Alta disponibilidad</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#60A5FA">7</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">Seguridad</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#F59E0B">3</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">Rendimiento</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#F59E0B">3</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">Respaldo</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#F59E0B">5</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">Observabilidad y operación</p>
+</div>
+</div>
+<table style="font-size:24px;font-family:'Inter', Arial, sans-serif;color:#C7D2E3;border:1px solid #24334F">
+<tr style="background:#141F36"><th style="width:30%;text-align:left;color:#22D3EE">Prueba</th><th style="width:38%;text-align:left;color:#22D3EE">Cómo</th><th style="width:32%;text-align:left;color:#22D3EE">Criterio de aceptación</th></tr>
+<tr><td style="color:#F1F5FB">PH-01 Conmutación de la VIP</td><td>Apagar lb01 con kubectl en bucle</td><td>Interrupción ≤ 10 s</td></tr>
+<tr><td style="color:#F1F5FB">PH-04 Falla de un worker</td><td>Apagar wk01 bajo carga</td><td>≥ 99 % de éxito; ≤ 5 min</td></tr>
+<tr><td style="color:#F1F5FB">PS-02 NetworkPolicy</td><td>Conexiones no autorizadas</td><td>100 % bloqueadas</td></tr>
+<tr><td style="color:#F1F5FB">PR-01 Carga base</td><td>k6 a 200 solicitudes/s, 15 min</td><td>p95 ≤ 500 ms</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">13 / 15</p>
+<aside>Aceptación global: 100 % de las pruebas de alta disponibilidad y de respaldo aprobadas, al menos 95 % del total, sin defectos críticos abiertos y con evidencia reproducible. Las pruebas de falla se repiten tres veces.</aside>
+</section>
+<section id="cost" data-transition="fade" style="background:#0B1220;color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">// FACTIBILIDAD</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-1px;color:#F1F5FB">Factibilidad económica a 5 años</h2>
+</div>
+<div style="display:flex;gap:40px;align-items:center">
+<img src="../diagramas/07_tco.png" alt="Costo total de propiedad acumulado a cinco años: on-premise frente a nube bajo demanda y con compromiso de un año" style="width:1000px;height:500px;object-fit:contain;background:#F4F7FB;border:1px solid #24334F;border-radius:16px">
+<div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:20px">
+<div style="display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:40px;font-weight:600;line-height:1.1;color:#60A5FA">US$ 45 442</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">Inversión inicial con IGV</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:40px;font-weight:600;line-height:1.1;color:#60A5FA">US$ 8 223</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">Costo anual sin personal</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:40px;font-weight:600;line-height:1.1;color:#F59E0B">US$ 86 557</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">On-premise a 5 años</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:40px;font-weight:600;line-height:1.1;color:#F59E0B">US$ 71 100</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">Nube bajo demanda a 5 años</p>
+</div>
+</div>
+</div>
+<p style="font-size:26px;line-height:1.4;color:#C7D2E3">On-premise cuesta un 22 % más que la nube bajo demanda a 5 años (con compromiso de un año, la nube cuesta US$ 53 460). La ventaja es el <span style="color:#22D3EE">control y la soberanía de los datos</span>, no el precio. Precios de mercado consultados el 11/11/2026.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">14 / 15</p>
+<aside>Precios consultados en internet el 11/11/2026 (Dell, MikroTik, Protectli, APC, Synology, Seagate, Proxmox y AWS); los rubros sin precio publicado, como el enlace de Internet, la energía y la observabilidad en la nube, son estimaciones. El punto de equilibrio frente a la nube bajo demanda llega a los 7,6 años. Con IGV recuperable el CapEx baja a US$ 38 792; con servidores reacondicionados, a unos US$ 23 228 y el costo a cinco años a unos US$ 64 343, menor que la nube bajo demanda. Factibilidad operativa: capacitación de 40 horas por administrador y guardia 24×7 solo para incidentes P1.</aside>
+</section>
+<section id="close" data-transition="fade" style="background:radial-gradient(circle at 80% 30%, #15335E 0%, #0B1220 60%);color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">// CIERRE</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-1px;color:#F1F5FB">Conclusiones</h2>
+</div>
+<div data-build-in="rise 1" style="position:absolute;left:128px;top:296px;width:1000px;display:flex;gap:24px;align-items:center">
+<div style="width:64px;height:64px;display:flex;align-items:center;justify-content:center;background:#0F2A3D;border:1px solid #1C6E86;border-radius:14px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:36px;height:36px;color:#22D3EE"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></div>
+<p style="flex:1;font-size:28px;line-height:1.35;color:#C7D2E3"><span style="color:#F1F5FB"><b>Trazable:</b></span> cada decisión se apoya en un hallazgo de la investigación</p>
+</div>
+<div data-build-in="rise 2" style="position:absolute;left:128px;top:404px;width:1000px;display:flex;gap:24px;align-items:center">
+<div style="width:64px;height:64px;display:flex;align-items:center;justify-content:center;background:#0F2A3D;border:1px solid #1C6E86;border-radius:14px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:36px;height:36px;color:#22D3EE"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div>
+<p style="flex:1;font-size:28px;line-height:1.35;color:#C7D2E3"><span style="color:#F1F5FB"><b>Resiliente:</b></span> sin puntos únicos de falla lógicos y con capacidad N+1</p>
+</div>
+<div data-build-in="rise 3" style="position:absolute;left:128px;top:512px;width:1000px;display:flex;gap:24px;align-items:center">
+<div style="width:64px;height:64px;display:flex;align-items:center;justify-content:center;background:#0F2A3D;border:1px solid #1C6E86;border-radius:14px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:36px;height:36px;color:#22D3EE"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
+<p style="flex:1;font-size:28px;line-height:1.35;color:#C7D2E3"><span style="color:#F1F5FB"><b>Seguro:</b></span> defensa en profundidad con riesgos residuales aceptados de forma explícita</p>
+</div>
+<div data-build-in="rise 4" style="position:absolute;left:128px;top:620px;width:1000px;display:flex;gap:24px;align-items:center">
+<div style="width:64px;height:64px;display:flex;align-items:center;justify-content:center;background:#0F2A3D;border:1px solid #1C6E86;border-radius:14px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:36px;height:36px;color:#22D3EE"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></div>
+<p style="flex:1;font-size:28px;line-height:1.35;color:#C7D2E3"><span style="color:#F1F5FB"><b>Verificable:</b></span> metas de 99,9 %, RPO ≤ 5 min y RTO ≤ 30 min, con 27 pruebas</p>
+</div>
+<div data-build-in="rise 5" style="position:absolute;left:128px;top:728px;width:1000px;display:flex;gap:24px;align-items:center">
+<div style="width:64px;height:64px;display:flex;align-items:center;justify-content:center;background:#0F2A3D;border:1px solid #1C6E86;border-radius:14px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:36px;height:36px;color:#22D3EE"><path d="M4 20V4M4 20h16"/><path d="M8 16v-5M12 16V8M16 16v-3"/></svg></div>
+<p style="flex:1;font-size:28px;line-height:1.35;color:#C7D2E3"><span style="color:#F1F5FB"><b>Transparente:</b></span> cuesta más que la nube; el valor está en el control y la soberanía de los datos</p>
+</div>
+<div data-build-in="fade 6" style="position:absolute;left:1192px;top:296px;width:600px;display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;flex-direction:column;gap:14px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:32px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:2px;color:#F59E0B">TRABAJO FUTURO</p>
+<ul style="font-size:26px;line-height:1.4;color:#C7D2E3">
+<li>Segundo switch y firewall en alta disponibilidad</li>
+<li>SSO con OIDC y autoescalado predictivo</li>
+<li>Sitio de recuperación en la nube</li>
+</ul>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px;background:#0F2A3D;border:1px solid #1C6E86;border-radius:16px;padding:32px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:2px;color:#22D3EE">SIGUIENTE PASO</p>
+<p style="font-size:26px;line-height:1.4;color:#E6FAFE">Implementar y validar en la III Unidad exactamente lo diseñado.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8EA0BA">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8EA0BA">15 / 15</p>
+<aside>Limitaciones: algunos costos son estimaciones (enlace de Internet, energía, observabilidad de la nube), el escenario es supuesto y el laboratorio a escala solo valida parcialmente el aislamiento por VLAN y el rendimiento absoluto. Trabajo futuro adicional: portal de desarrolladores y planificadores basados en aprendizaje. Al presentar: cada clic revela una conclusión; el último muestra el trabajo futuro y el siguiente paso.</aside>
+</section>
+</div>
+<div id="ayuda">← → para navegar · F pantalla completa</div>
+<script>
+(function () {
+  var stage = document.getElementById('stage');
+  var items = Array.prototype.slice.call(stage.querySelectorAll('section'));
+  var actual = 0;
+  function escalar() {
+    var s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+    stage.style.transform = 'translate(-50%, -50%) scale(' + s + ')';
+  }
+  function ir(n) {
+    actual = Math.max(0, Math.min(items.length - 1, n));
+    items.forEach(function (el, i) { el.classList.toggle('activa', i === actual); });
+    history.replaceState(null, '', '#' + (actual + 1));
+  }
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { ir(actual + 1); e.preventDefault(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { ir(actual - 1); e.preventDefault(); }
+    else if (e.key === 'Home') { ir(0); }
+    else if (e.key === 'End') { ir(items.length - 1); }
+    else if (e.key === 'f' || e.key === 'F') {
+      if (document.fullscreenElement) { document.exitFullscreen(); } else { document.documentElement.requestFullscreen(); }
+    }
+  });
+  document.addEventListener('click', function (e) { ir(e.clientX > window.innerWidth / 2 ? actual + 1 : actual - 1); });
+  window.addEventListener('resize', escalar);
+  escalar();
+  ir((parseInt(location.hash.slice(1), 10) || 1) - 1);
+})();
+</script>
+</body>
+</html>

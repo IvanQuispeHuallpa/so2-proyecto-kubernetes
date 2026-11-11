@@ -1,0 +1,27 @@
+<section id="network" data-transition="fade" style="background:#0E1626;color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">// DISEÑO</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-1px;color:#F1F5FB">Diseño de red</h2>
+</div>
+<div style="display:flex;gap:40px;align-items:center">
+<img src="/_blob/4ea354c95c62e95fbfb67b7091ecdaba" alt="Topología de red con firewall, switch core, tres hosts y plan de VLAN" style="width:899px;height:620px;object-fit:contain;background:#F4F7FB;border:1px solid #24334F;border-radius:16px">
+<div style="flex:1;display:flex;flex-direction:column;gap:28px">
+<table style="font-size:24px;font-family:'JetBrains Mono', 'Courier New', monospace;color:#C7D2E3;border:1px solid #24334F">
+<tr style="background:#141F36"><th style="width:18%;text-align:left;color:#22D3EE">VLAN</th><th style="width:40%;text-align:left;color:#22D3EE">Uso</th><th style="width:42%;text-align:left;color:#22D3EE">Subred</th></tr>
+<tr><td style="color:#F1F5FB">10</td><td>Gestión</td><td>10.10.10.0/24</td></tr>
+<tr><td style="color:#F1F5FB">20</td><td>Control</td><td>10.10.20.0/24</td></tr>
+<tr><td style="color:#F1F5FB">30</td><td>Workers</td><td>10.10.30.0/24</td></tr>
+<tr><td style="color:#F1F5FB">40</td><td>Datos</td><td>10.10.40.0/24</td></tr>
+<tr><td style="color:#F1F5FB">50</td><td>Servicios</td><td>10.10.50.0/24</td></tr>
+<tr><td style="color:#F1F5FB">60</td><td>Respaldo</td><td>10.10.60.0/24</td></tr>
+<tr><td style="color:#F1F5FB">100</td><td>Usuarios</td><td>10.10.100.0/23</td></tr>
+</table>
+<p style="font-size:24px;line-height:1.4;color:#C7D2E3">Firewall con denegación por defecto; acceso remoto solo por VPN con MFA y bastión.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">09 / 15</p>
+<aside>El firewall es el gateway de todas las VLAN. El API (6443), el kubelet (10250), etcd (2379-2380) y la consola de Proxmox (8006) nunca se publican en Internet. La IP virtual del API es 10.10.20.10 y la de servicios 10.10.50.100; los pods usan 10.244.0.0/16.</aside>
+</section>

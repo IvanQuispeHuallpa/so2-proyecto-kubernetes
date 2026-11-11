@@ -1,0 +1,60 @@
+<section id="reqs" data-transition="fade" style="background:#0E1626;color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">// INVESTIGACIÓN</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-1px;color:#F1F5FB">Requerimientos medibles</h2>
+</div>
+<div data-build-in="rise 1" style="position:absolute;left:128px;top:296px;width:398px;height:264px;display:flex;flex-direction:column;gap:12px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:28px">
+<div style="width:40px;height:4px;background:#60A5FA;border-radius:2px"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;color:#94A3B8">DISPONIBILIDAD</p>
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#60A5FA">≥ 99,9 %</p>
+<p style="font-size:24px;line-height:1.35;color:#C7D2E3">Disponibilidad mensual (≤ 43,8 min de caída)</p>
+</div>
+<div data-build-in="rise 1" style="position:absolute;left:550px;top:296px;width:398px;height:264px;display:flex;flex-direction:column;gap:12px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:28px">
+<div style="width:40px;height:4px;background:#60A5FA;border-radius:2px"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;color:#94A3B8">DATOS</p>
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#60A5FA">≤ 5 min</p>
+<p style="font-size:24px;line-height:1.35;color:#C7D2E3">RPO de las bases de datos (WAL continuo)</p>
+</div>
+<div data-build-in="rise 1" style="position:absolute;left:972px;top:296px;width:398px;height:264px;display:flex;flex-direction:column;gap:12px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:28px">
+<div style="width:40px;height:4px;background:#60A5FA;border-radius:2px"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;color:#94A3B8">RECUPERACIÓN</p>
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#60A5FA">≤ 30 min</p>
+<p style="font-size:24px;line-height:1.35;color:#C7D2E3">RTO de un namespace (reconstrucción total ≤ 4 h)</p>
+</div>
+<div data-build-in="rise 1" style="position:absolute;left:1394px;top:296px;width:398px;height:264px;display:flex;flex-direction:column;gap:12px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:28px">
+<div style="width:40px;height:4px;background:#60A5FA;border-radius:2px"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;color:#94A3B8">RENDIMIENTO</p>
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#60A5FA">≤ 500 ms</p>
+<p style="font-size:24px;line-height:1.35;color:#C7D2E3">Latencia p95 a 200 solicitudes/s, errores &lt; 1 %</p>
+</div>
+<div data-build-in="rise 2" style="position:absolute;left:128px;top:584px;width:398px;height:264px;display:flex;flex-direction:column;gap:12px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:28px">
+<div style="width:40px;height:4px;background:#F59E0B;border-radius:2px"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;color:#94A3B8">CONMUTACIÓN</p>
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#F59E0B">≤ 10 s</p>
+<p style="font-size:24px;line-height:1.35;color:#C7D2E3">Conmutación de la IP virtual del API</p>
+</div>
+<div data-build-in="rise 2" style="position:absolute;left:550px;top:584px;width:398px;height:264px;display:flex;flex-direction:column;gap:12px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:28px">
+<div style="width:40px;height:4px;background:#F59E0B;border-radius:2px"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;color:#94A3B8">ESCALADO</p>
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#F59E0B">3 → 10</p>
+<p style="font-size:24px;line-height:1.35;color:#C7D2E3">Réplicas del HPA en ≤ 3 min con carga 4×</p>
+</div>
+<div data-build-in="rise 2" style="position:absolute;left:972px;top:584px;width:398px;height:264px;display:flex;flex-direction:column;gap:12px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:28px">
+<div style="width:40px;height:4px;background:#F59E0B;border-radius:2px"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;color:#94A3B8">CAPACIDAD</p>
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#F59E0B">N+1</p>
+<p style="font-size:24px;line-height:1.35;color:#C7D2E3">Capacidad con un worker o un host caído</p>
+</div>
+<div data-build-in="rise 2" style="position:absolute;left:1394px;top:584px;width:398px;height:264px;display:flex;flex-direction:column;gap:12px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:28px">
+<div style="width:40px;height:4px;background:#F59E0B;border-radius:2px"></div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;color:#94A3B8">SEGURIDAD</p>
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#F59E0B">≥ 90 %</p>
+<p style="font-size:24px;line-height:1.35;color:#C7D2E3">Controles CIS aplicables en PASS (kube-bench)</p>
+</div>
+<p style="position:absolute;left:128px;top:880px;width:1664px;font-size:24px;line-height:1.4;color:#94A3B8">16 requerimientos funcionales y 21 no funcionales, cada uno con una prueba asociada.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">05 / 15</p>
+<aside>Los requerimientos no funcionales son los criterios de aceptación de la III Unidad. La referencia de despliegue de 10 minutos viene de Aguilar y García (2024). Al presentar: primer clic, metas de disponibilidad y datos (azul); segundo clic, metas de conmutación, escalado, capacidad y seguridad (naranja).</aside>
+</section>

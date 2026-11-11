@@ -1,0 +1,60 @@
+<section id="goal" data-transition="fade" style="background:#0E1F36;color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:center;gap:32px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="width:900px;display:flex;flex-direction:column;gap:32px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">// OBJETIVO GENERAL</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.08;letter-spacing:-1px;color:#F1F5FB">Una plataforma que siga funcionando <span style="color:#22D3EE">cuando algo falla</span></h2>
+<p style="font-size:30px;line-height:1.4;color:#AEBBD0">Kubernetes con alta disponibilidad, seguridad, observabilidad y operación automatizada, sustentada en la investigación bibliográfica de la I Unidad.</p>
+<div style="display:flex;gap:20px">
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:40px;font-weight:600;line-height:1.1;color:#22D3EE">3</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">dominios de falla físicos</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:40px;font-weight:600;line-height:1.1;color:#22D3EE">≥ 99,9 %</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">de disponibilidad mensual</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:40px;font-weight:600;line-height:1.1;color:#22D3EE">5 / 30 min</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">RPO / RTO máximos</p>
+</div>
+</div>
+</div>
+<x-embed style="position:absolute;left:1090px;top:140px;width:702px;height:770px"><style>html,body{margin:0;height:100%;overflow:hidden;background:transparent}body{position:relative;font:24px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#C7D2E3}.n{position:absolute;box-sizing:border-box;border:2px solid #2A3B5C;background:#111B30;border-radius:14px;padding:12px 14px;transition:border-color .5s,background .5s}.t{color:#F1F5FB;white-space:nowrap}.s{margin-top:4px;color:#94A3B8;white-space:nowrap}.dot{position:absolute;border-radius:50%;background:#22D3EE;box-shadow:0 0 10px #22D3EE;pointer-events:none}.down{border-color:#F59E0B;background:#2A1D0C}.chip{position:absolute;box-sizing:border-box;width:188px;height:44px;border-radius:8px;border:1px solid #2A3B5C;background:#0D1628;padding:6px 12px;color:#C7D2E3;transition:opacity .5s}.pod{position:absolute;box-sizing:border-box;width:88px;height:44px;border-radius:8px;border:2px solid #60A5FA;color:#F1F5FB;text-align:center;line-height:40px;transition:opacity .6s,transform .6s,box-shadow .6s}.cap{position:absolute;font:24px system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:#AEBBD0;white-space:nowrap}.sp{font:24px system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;padding:6px 10px;border-radius:8px;border:1px solid #2A3B5C;color:#7C8BA1;white-space:nowrap;transition:background .3s,color .3s,border-color .3s}.sp.cur{background:#22D3EE;border-color:#22D3EE;color:#0B1220;font-weight:600}.sp.warn{background:#F59E0B;border-color:#F59E0B;color:#0B1220;font-weight:600}.sp.done{color:#C7D2E3;border-color:#2F6577}</style>
+<svg id="g" width="702" height="770" style="position:absolute;left:0;top:0"></svg>
+<script>
+var B=document.body,NS='http://www.w3.org/2000/svg',G=document.getElementById('g'),dots=[],last=performance.now();
+function box(c,x,y,w,h){var d=document.createElement('div');d.className=c;d.style.left=x+'px';d.style.top=y+'px';if(w)d.style.width=w+'px';if(h)d.style.height=h+'px';B.appendChild(d);return d}
+function tx(p,c,s){var d=document.createElement('div');d.className=c;d.textContent=s;p.appendChild(d);return d}
+function ln(x1,y1,x2,y2,dash){var l=document.createElementNS(NS,'line');l.setAttribute('x1',x1);l.setAttribute('y1',y1);l.setAttribute('x2',x2);l.setAttribute('y2',y2);l.setAttribute('stroke','#2A3B5C');l.setAttribute('stroke-width','2');if(dash)l.setAttribute('stroke-dasharray','6 6');G.appendChild(l);return l}
+function shoot(p,o){o=o||{};if(dots.length>80)return null;var d=document.createElement('div');d.className='dot';var z=o.size||12;d.style.width=z+'px';d.style.height=z+'px';d.style.margin=(-z/2)+'px 0 0 '+(-z/2)+'px';if(o.col){d.style.background=o.col;d.style.boxShadow='0 0 10px '+o.col}B.appendChild(d);var seg=[],L=0;for(var i=2;i!==p.length;i+=2){var l=Math.hypot(p[i]-p[i-2],p[i+1]-p[i-1]);seg.push(l);L+=l}var q={e:d,p:p,seg:seg,L:L,s:0,v:o.v||260,end:o.end};dots.push(q);put(q);return q}
+function put(q){var s=q.s,i=0;while(i+1!==q.seg.length){if(s>q.seg[i]){s-=q.seg[i];i++}else break}var f=q.seg[i]?Math.min(1,s/q.seg[i]):0,p=q.p;q.e.style.left=(p[2*i]+(p[2*i+2]-p[2*i])*f)+'px';q.e.style.top=(p[2*i+1]+(p[2*i+3]-p[2*i+1])*f)+'px'}
+function step(dt){for(var k=dots.length-1;k>=0;k--){var q=dots[k];q.s+=q.v*dt;if(q.s>=q.L){q.e.remove();dots.splice(k,1);if(q.end)q.end()}else put(q)}}
+function seq(list){var i=0;function nx(){var s=list[i];i=(i+1)%list.length;s[1]();setTimeout(nx,s[0])}nx()}
+function steps(x,y,names){var w=document.createElement('div');w.style.cssText='position:absolute;left:'+x+'px;top:'+y+'px;display:flex;gap:8px';var a=[];for(var i=0;i!==names.length;i++){var p=document.createElement('div');p.className='sp';p.textContent=(i+1)+' '+names[i];w.appendChild(p);a.push(p)}B.appendChild(w);return function(k,warn){for(var i=0;i!==a.length;i++)a[i].className='sp'+((i===k)?(warn?' warn':' cur'):((k>i)?' done':''))}}
+var HX=[0,241,482],NM=['A','B','C'],hosts=[],tags=[],chips=[],slots=[],app=[],cnt=0;
+var u=box('n',201,0,300,92);u.style.borderColor='#22D3EE';u.style.textAlign='center';tx(u,'t','Usuarios');var uc=tx(u,'s','0 peticiones OK');
+for(var i=0;i!==3;i++){ln(351,92,HX[i]+110,150);var h=box('n',HX[i],150,220,410);tx(h,'t','Host '+NM[i]);tags.push(tx(h,'s','activo'));hosts.push(h);var c1=box('chip',HX[i]+16,240);c1.textContent='cp-0'+(i+1);var c2=box('chip',HX[i]+16,294);c2.textContent='wk-0'+(i+1);chips.push([c1,c2]);var row=[],ap=[];for(var s=0;s!==6;s++){var p=box('pod',HX[i]+16+(s%2)*100,368+Math.floor(s/2)*58);p.style.opacity=0;row.push(p);ap.push('')}slots.push(row);app.push(ap)}
+var rp=box('cap',0,578);rp.style.color='#F1F5FB';var r0=document.createElement('span');r0.textContent='Réplicas activas:  ';rp.appendChild(r0);var rw=document.createElement('span');rp.appendChild(rw);var r1=document.createElement('span');r1.textContent='  ·  ';rp.appendChild(r1);var ra=document.createElement('span');rp.appendChild(ra);
+var set=steps(0,622,['Normal','Falla','Reprograma','Estable']);
+var C1=box('cap',0,682),C2=box('cap',0,718);C1.style.color='#F1F5FB';
+function say(a,b){C1.textContent=a;C2.textContent=b}
+function rep(){var w=0,a=0;for(var i=0;i!==3;i++)for(var s=0;s!==6;s++){if(app[i][s]==='web')w++;if(app[i][s]==='api')a++}rw.textContent='web '+w+'/3';rw.style.color=(w===3)?'#22D3EE':'#F59E0B';ra.textContent='api '+a+'/3';ra.style.color=(a===3)?'#22D3EE':'#F59E0B'}
+function show(i,s,nm,nw){var p=slots[i][s];app[i][s]=nm||'';if(nm){p.textContent=nm;p.style.background=(nm==='web')?'#17325A':'#2A2350';p.style.borderColor=nw?'#22D3EE':((nm==='web')?'#60A5FA':'#A78BFA');p.style.boxShadow=nw?'0 0 16px rgba(34,211,238,.7)':'none';p.style.opacity=1;p.style.transform='scale(1)'}else{p.style.opacity=0;p.style.transform='scale(.6)'}rep()}
+function fail(i,f){hosts[i].className=f?'n down':'n';tags[i].textContent=f?'FALLA':'activo';tags[i].style.color=f?'#F59E0B':'#94A3B8';chips[i][0].style.opacity=f?.35:1;chips[i][1].style.opacity=f?.35:1}
+seq([
+[5500,function(){for(var i=0;i!==3;i++){fail(i,false);for(var s=0;s!==6;s++)show(i,s,(s===0)?'web':((s===1)?'api':''),false)}set(0);say('web y api tienen 3 réplicas cada una, una por host.','El Service reparte las peticiones entre todas.')}],
+[1500,function(){fail(1,true);set(1,true);say('Cae el host B: sus máquinas virtuales no responden.','Kubernetes marca sus pods como no disponibles.')}],
+[3500,function(){show(1,0,'');show(1,1,'');say('Se pierden los pods de B: quedan 2 de 3 réplicas.','El Service solo envía tráfico a los pods de A y C.')}],
+[1300,function(){set(2);say('El controlador detecta 2/3 réplicas y crea pods','nuevos (con brillo) en A y C: capacidad N+1.')}],
+[3800,function(){show(0,2,'web',true);show(2,2,'api',true)}],
+[4500,function(){fail(1,false);set(3);say('El host B vuelve vacío y queda como reserva.','Las peticiones nunca dejaron de atenderse.')}]
+]);
+setInterval(function(){var live=[];for(var i=0;i!==3;i++)for(var s=0;s!==6;s++)if(app[i][s])live.push([i,s]);if(!live.length)return;var k=live[Math.floor(Math.random()*live.length)],i2=k[0],s2=k[1];var px=HX[i2]+16+(s2%2)*100+44,py=368+Math.floor(s2/2)*58+22;shoot([351,92,HX[i2]+110,150,px,py],{v:420,end:function(){if(app[i2][s2]){cnt++;uc.textContent=cnt+' peticiones OK'}}})},200);
+function fr(t){var dt=Math.min(0.05,(t-last)/1000);last=t;step(dt);requestAnimationFrame(fr)}
+requestAnimationFrame(fr);
+</script></x-embed>
+<p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8EA0BA">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8EA0BA">03 / 15</p>
+<aside>Seis objetivos específicos en el informe: requerimientos, arquitectura sin puntos únicos de falla, infraestructura y red, seguridad, modelo operativo con plan de implementación y pruebas, y factibilidad frente a una nube gestionada. La animación avanza en 4 pasos numerados: 1) dos aplicaciones, web y api, con 3 réplicas cada una repartidas en los tres hosts; 2) cae el host B y el contador de réplicas baja a 2/3 (naranja); 3) el controlador crea pods nuevos en A y C (con brillo) y las réplicas vuelven a 3/3; 4) el host B vuelve vacío como reserva. El contador de peticiones atendidas nunca se detiene: esa es la alta disponibilidad.</aside>
+</section>

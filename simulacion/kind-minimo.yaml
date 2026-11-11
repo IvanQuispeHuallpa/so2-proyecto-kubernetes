@@ -1,0 +1,21 @@
+# Clúster de simulación (perfil mínimo) para equipos con poca memoria: 1 nodo de control + 1 worker.
+# No permite las pruebas de alta disponibilidad del plano de control; sirve para practicar el resto.
+#
+#   kind create cluster --config simulacion/kind-minimo.yaml
+#
+# Consumo aproximado: 1,5-2 GB de RAM en total.
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: so2-min
+networking:
+  disableDefaultCNI: true
+  kubeProxyMode: none
+  podSubnet: 10.244.0.0/16
+  serviceSubnet: 10.96.0.0/12
+nodes:
+  - role: control-plane
+  - role: worker
+    extraPortMappings:
+      - containerPort: 30080
+        hostPort: 8080
+        protocol: TCP

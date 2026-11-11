@@ -1,0 +1,81 @@
+<section id="ops" data-transition="fade" style="background:#0E1626;color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">// OPERACIÓN</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-1px;color:#F1F5FB">Operación, respaldo y monitoreo</h2>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:28px 32px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:2px;color:#22D3EE">01 · RESPALDO</p>
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;color:#F1F5FB">Respaldo 3-2-1</h3>
+<ul style="font-size:24px;line-height:1.35;color:#C7D2E3">
+<li>Snapshot de etcd cada 6 h</li>
+<li>Velero a diario hacia MinIO</li>
+<li>WAL de PostgreSQL continuo (RPO ≤ 5 min)</li>
+<li>Copia fuera de sitio semanal</li>
+</ul>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:28px 32px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:2px;color:#F59E0B">02 · PROCESOS</p>
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;color:#F1F5FB">Modelo operativo</h3>
+<ul style="font-size:24px;line-height:1.35;color:#C7D2E3">
+<li>Roles definidos con matriz RACI</li>
+<li>Parches mensuales y actualización trimestral</li>
+<li>Pruebas de restauración trimestrales</li>
+<li>Incidente P1: respuesta en 15 min, resolución en 2 h</li>
+</ul>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:28px 32px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:2px;color:#60A5FA">03 · VISIBILIDAD</p>
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;color:#F1F5FB">Observabilidad</h3>
+<ul style="font-size:24px;line-height:1.35;color:#C7D2E3">
+<li>Prometheus, Alertmanager y Grafana</li>
+<li>Loki para registros y Hubble para flujos de red</li>
+<li>10 alertas mínimas por correo y Telegram</li>
+<li>Auditoría de la API retenida 90 días</li>
+</ul>
+</div>
+</div>
+<x-embed style="position:absolute;left:128px;top:704px;width:1664px;height:224px"><style>html,body{margin:0;height:100%;overflow:hidden;background:transparent}body{position:relative;font:24px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#C7D2E3}.n{position:absolute;box-sizing:border-box;border:2px solid #2A3B5C;background:#111B30;border-radius:14px;padding:12px 14px;transition:border-color .3s,background .4s,box-shadow .3s}.t{color:#F1F5FB;white-space:nowrap}.s{margin-top:4px;color:#94A3B8;white-space:nowrap}.dot{position:absolute;border-radius:50%;background:#22D3EE;box-shadow:0 0 10px #22D3EE;pointer-events:none}.down{border-color:#F59E0B;background:#2A1D0C}.src{padding:14px 14px}.fl{border-color:#22D3EE;box-shadow:0 0 18px rgba(34,211,238,.45)}.fo{border-color:#F59E0B;box-shadow:0 0 18px rgba(245,158,11,.45)}.cap{position:absolute;font:24px system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:#AEBBD0;white-space:nowrap}.sg{position:absolute;top:42px;width:128px;height:6px;border-radius:3px;background:#2A3B5C;transition:background .3s}</style>
+<svg id="g" width="1664" height="224" style="position:absolute;left:0;top:0"></svg>
+<script>
+var B=document.body,NS='http://www.w3.org/2000/svg',G=document.getElementById('g'),dots=[],last=performance.now();
+function box(c,x,y,w,h){var d=document.createElement('div');d.className=c;d.style.left=x+'px';d.style.top=y+'px';if(w)d.style.width=w+'px';if(h)d.style.height=h+'px';B.appendChild(d);return d}
+function tx(p,c,s){var d=document.createElement('div');d.className=c;d.textContent=s;p.appendChild(d);return d}
+function ln(x1,y1,x2,y2,dash){var l=document.createElementNS(NS,'line');l.setAttribute('x1',x1);l.setAttribute('y1',y1);l.setAttribute('x2',x2);l.setAttribute('y2',y2);l.setAttribute('stroke','#2A3B5C');l.setAttribute('stroke-width','2');if(dash)l.setAttribute('stroke-dasharray','6 6');G.appendChild(l);return l}
+function shoot(p,o){o=o||{};if(dots.length>80)return null;var d=document.createElement('div');d.className='dot';var z=o.size||12;d.style.width=z+'px';d.style.height=z+'px';d.style.margin=(-z/2)+'px 0 0 '+(-z/2)+'px';if(z>14)d.style.borderRadius='5px';if(o.col){d.style.background=o.col;d.style.boxShadow='0 0 10px '+o.col}B.appendChild(d);var seg=[],L=0;for(var i=2;i!==p.length;i+=2){var l=Math.hypot(p[i]-p[i-2],p[i+1]-p[i-1]);seg.push(l);L+=l}var q={e:d,p:p,seg:seg,L:L,s:0,v:o.v||260,end:o.end};dots.push(q);put(q);return q}
+function put(q){var s=q.s,i=0;while(i+1!==q.seg.length){if(s>q.seg[i]){s-=q.seg[i];i++}else break}var f=q.seg[i]?Math.min(1,s/q.seg[i]):0,p=q.p;q.e.style.left=(p[2*i]+(p[2*i+2]-p[2*i])*f)+'px';q.e.style.top=(p[2*i+1]+(p[2*i+3]-p[2*i+1])*f)+'px'}
+function step(dt){for(var k=dots.length-1;k>=0;k--){var q=dots[k];q.s+=q.v*dt;if(q.s>=q.L){q.e.remove();dots.splice(k,1);if(q.end)q.end()}else put(q)}}
+function seq(list){var i=0;function nx(){var s=list[i];i=(i+1)%list.length;s[1]();setTimeout(nx,s[0])}nx()}
+var SY=[34,112,190],SN=['etcd · cada 6 h','Velero · diario','PostgreSQL (WAL)'],sb=[],st=[],obj=0,off=0,lw=performance.now(),dis=false,frz=false;
+for(var i=0;i!==3;i++){ln(300,SY[i],400,112);var s=box('n src',0,SY[i]-30,300,60);st.push(tx(s,'t',SN[i]));sb.push(s)}
+ln(700,112,800,112,1);
+var m=box('n',400,42,300,140);tx(m,'t','MinIO · local');var mo=tx(m,'s','objetos: 0');var mw=tx(m,'s','WAL: hace 0,0 s');
+var o=box('n',800,52,260,120);tx(o,'t','Fuera de sitio');var oo=tx(o,'s','copias: 0');
+var hd=box('cap',1100,0);hd.style.font='600 24px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace';
+var sg=[];for(var k=0;k!==4;k++){var g2=box('sg',1100+k*136,42);sg.push(g2)}
+var L1=box('cap',1100,62),L2=box('cap',1100,98),L3=box('cap',1100,134),L4=box('cap',1100,170);L1.style.color='#F1F5FB';
+function say(a,b,c,d){L1.textContent=a;L2.textContent=b||'';L3.textContent=c||'';L4.textContent=d||''}
+function P(i,name,warn){hd.textContent='PASO '+(i+1)+' / 4 · '+name;hd.style.color=warn?'#F59E0B':'#22D3EE';for(var k=0;k!==4;k++)sg[k].style.background=(k===i)?(warn?'#F59E0B':'#22D3EE'):((i>k)?'#2F6577':'#2A3B5C')}
+function fmt(v){return v.toFixed(1).replace('.',',')+' s'}
+function hit(){obj++;mo.textContent='objetos: '+obj;m.classList.add('fl');setTimeout(function(){m.classList.remove('fl')},250)}
+function offhit(){off++;oo.textContent='copias: '+off;o.classList.add('fo');setTimeout(function(){o.classList.remove('fo')},400)}
+function db(ok){sb[2].className=ok?'n src':'n src down';st[2].textContent=ok?'PostgreSQL (WAL)':'PostgreSQL · caído'}
+seq([
+[6500,function(){dis=false;frz=false;db(true);P(0,'RESPALDO CONTINUO');say('El WAL de PostgreSQL se copia sin pausa','(puntos): se pierden como máx. 5 min (RPO).','etcd y Velero envían copias periódicas','(bloques). Tiempos acelerados.')}],
+[4500,function(){P(1,'FUERA DE SITIO');say('Una copia sale del centro de datos:','3 copias, en 2 medios, 1 fuera de sitio.','Protege ante incendio o robo del sitio.','');shoot([700,112,800,112],{size:34,col:'#F59E0B',v:110,end:offhit})}],
+[4500,function(){dis=true;db(false);P(2,'DESASTRE',true);say('Falla grave: se pierde la base de datos.','En MinIO queda el WAL de hace segundos:','esa es toda la pérdida de datos (RPO).','')}],
+[3000,function(){frz=true;P(3,'RESTAURACIÓN');say('Se restaura la copia y se reaplica el WAL.','Meta: servicio de vuelta en ≤ 30 min (RTO).','','');for(var k=0;k!==4;k++)setTimeout(function(){shoot([400,112,300,190],{size:22,col:'#22D3EE',v:170})},k*600)}],
+[3000,function(){dis=false;db(true);L3.textContent='Base de datos restaurada y en línea.';L4.textContent='El ciclo de respaldo continúa.'}]
+]);
+setInterval(function(){if(dis)return;shoot([300,190,400,112],{size:10,v:240,end:function(){hit();lw=performance.now()}})},260);
+setInterval(function(){shoot([300,34,400,112],{size:22,col:'#60A5FA',v:200,end:hit})},2600);
+setInterval(function(){shoot([300,112,400,112],{size:28,col:'#A5F3FC',v:160,end:hit})},4200);
+function fr(t){var dt=Math.min(0.05,(t-last)/1000);last=t;if(!frz){mw.textContent='WAL: hace '+fmt(Math.max(0,(t-lw)/1000));mw.style.color=dis?'#F59E0B':'#94A3B8'}step(dt);requestAnimationFrame(fr)}
+requestAnimationFrame(fr);
+</script></x-embed>
+<p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">11 / 15</p>
+<aside>Metas: RPO de 5 minutos para bases de datos, RTO de 30 minutos para restaurar un namespace y reconstrucción total en 4 horas. Hay seis procedimientos de respuesta para los escenarios principales y revisión posterior sin culpables. La animación inferior cuenta la historia completa del respaldo en 4 pasos: 1) el WAL de PostgreSQL fluye sin pausa hacia MinIO (puntos pequeños) y etcd y Velero envían copias periódicas (bloques); 2) una copia sale fuera de sitio, completando la regla 3-2-1; 3) se pierde la base de datos y el contador «WAL: hace…» de MinIO muestra cuántos datos quedarían sin respaldar, que es el RPO; 4) se restaura desde MinIO y se reaplica el WAL, con la meta de RTO. Los tiempos están acelerados para la demostración.</aside>
+</section>

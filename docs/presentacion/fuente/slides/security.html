@@ -1,0 +1,31 @@
+<section id="security" data-transition="fade" style="background:#0B1220;color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">// DISEÑO</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-1px;color:#F1F5FB">Seguridad en profundidad</h2>
+</div>
+<div style="display:flex;gap:40px;align-items:center">
+<img src="/_blob/8072d9dc4d1ff7f3076824071d06d599" alt="Defensa en profundidad según el modelo 4C y puntos de control de una petición" style="width:938px;height:600px;object-fit:contain;background:#F4F7FB;border:1px solid #24334F;border-radius:16px">
+<div style="flex:1;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;gap:20px">
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#F59E0B">14</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">riesgos valorados</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#60A5FA">11</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">amenazas (STRIDE)</p>
+</div>
+</div>
+<ul style="font-size:26px;line-height:1.45;color:#C7D2E3">
+<li>Los 3 riesgos críticos iniciales bajan a nivel medio o bajo</li>
+<li>RBAC mínimo, Pod Security Admission y NetworkPolicy</li>
+<li>Aceptados: switch único y falla bizantina</li>
+</ul>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">10 / 15</p>
+<aside>Modelo 4C: nube o infraestructura, clúster, contenedor y código (Simón, 2021). La ruta de una petición tiene seis puntos de control: usuario, firewall, Ingress, NetworkPolicy, pod y base de datos. Raft no cubre fallas bizantinas (Diouf et al., 2020), por eso es un riesgo aceptado con hardening y auditoría.</aside>
+</section>

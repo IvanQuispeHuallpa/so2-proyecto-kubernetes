@@ -1,0 +1,25 @@
+# Clúster de simulación (perfil HA): 3 nodos de control + 2 workers como contenedores Docker.
+# kind usa kubeadm y containerd por dentro, igual que el diseño, y al haber varios nodos de control
+# crea automáticamente un contenedor HAProxy ("so2-ha-external-load-balancer") delante del API.
+#
+#   kind create cluster --config simulacion/kind-cluster.yaml
+#
+# Consumo aproximado: 3-4 GB de RAM en total.
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: so2-ha
+networking:
+  disableDefaultCNI: true      # se instala Cilium, como en el diseño
+  kubeProxyMode: none          # Cilium reemplaza a kube-proxy
+  podSubnet: 10.244.0.0/16
+  serviceSubnet: 10.96.0.0/12
+nodes:
+  - role: control-plane        # cp01
+  - role: control-plane        # cp02
+  - role: control-plane        # cp03
+  - role: worker               # wk01: publica el Ingress en el equipo anfitrión
+    extraPortMappings:
+      - containerPort: 30080   # NodePort HTTP de Traefik
+        hostPort: 8080
+        protocol: TCP
+  - role: worker               # wk02

@@ -1,0 +1,44 @@
+<section id="tests" data-transition="fade" style="background:#0E1626;color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">// OPERACIÓN</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-1px;color:#F1F5FB">Plan de pruebas: 27 casos</h2>
+</div>
+<div style="display:flex;gap:20px">
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#60A5FA">2</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">Infraestructura y red</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#60A5FA">7</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">Alta disponibilidad</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#60A5FA">7</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">Seguridad</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#F59E0B">3</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">Rendimiento</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#F59E0B">3</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">Respaldo</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;background:#141F36;border:1px solid #24334F;border-radius:14px;padding:24px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#F59E0B">5</p>
+<p style="font-size:24px;line-height:1.3;color:#C7D2E3">Observabilidad y operación</p>
+</div>
+</div>
+<table style="font-size:24px;font-family:'Inter', Arial, sans-serif;color:#C7D2E3;border:1px solid #24334F">
+<tr style="background:#141F36"><th style="width:30%;text-align:left;color:#22D3EE">Prueba</th><th style="width:38%;text-align:left;color:#22D3EE">Cómo</th><th style="width:32%;text-align:left;color:#22D3EE">Criterio de aceptación</th></tr>
+<tr><td style="color:#F1F5FB">PH-01 Conmutación de la VIP</td><td>Apagar lb01 con kubectl en bucle</td><td>Interrupción ≤ 10 s</td></tr>
+<tr><td style="color:#F1F5FB">PH-04 Falla de un worker</td><td>Apagar wk01 bajo carga</td><td>≥ 99 % de éxito; ≤ 5 min</td></tr>
+<tr><td style="color:#F1F5FB">PS-02 NetworkPolicy</td><td>Conexiones no autorizadas</td><td>100 % bloqueadas</td></tr>
+<tr><td style="color:#F1F5FB">PR-01 Carga base</td><td>k6 a 200 solicitudes/s, 15 min</td><td>p95 ≤ 500 ms</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">13 / 15</p>
+<aside>Aceptación global: 100 % de las pruebas de alta disponibilidad y de respaldo aprobadas, al menos 95 % del total, sin defectos críticos abiertos y con evidencia reproducible. Las pruebas de falla se repiten tres veces.</aside>
+</section>

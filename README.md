@@ -20,15 +20,17 @@ Metas de diseño: disponibilidad ≥ 99,9 %, RPO ≤ 5 min y RTO ≤ 30 min.
 ├── kubernetes/            Manifiestos y configuración del clúster
 │   ├── kubeadm/             Inicialización del plano de control
 │   └── seguridad/           NetworkPolicy y Pod Security Admission
+├── simulacion/            Laboratorio ligero con kind (contenedores Docker en lugar de VM)
 └── docs/
-    └── diagramas/         Arquitectura, red, seguridad, despliegue, flujos, cronograma y costos (PNG)
+    ├── diagramas/         Arquitectura, red, seguridad, despliegue, flujos, cronograma y costos (PNG)
+    └── presentacion/      Presentación del proyecto (index.html: abrir en el navegador; fuente/: diapositivas originales)
 ```
 
 El código de la implementación (Ansible, Vagrant, Helm, etc.) se irá agregando en estas carpetas durante la III Unidad.
 
 ## Estado
 
-- **II Unidad (diseño):** completada. El documento técnico y la presentación se mantienen fuera del repositorio.
+- **II Unidad (diseño):** completada. El documento técnico se mantiene fuera del repositorio; la presentación está en `docs/presentacion/`.
 - **III Unidad (implementación):** en curso; los archivos de `infra/` y `kubernetes/` son el punto de partida tomado del diseño
   (direccionamiento: VLAN 20 para el plano de control, pods `10.244.0.0/16`, servicios `10.96.0.0/12`).
 

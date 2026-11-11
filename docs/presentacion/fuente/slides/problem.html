@@ -1,0 +1,35 @@
+<section id="problem" data-transition="fade" style="background:#0E1626;color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">// CONTEXTO</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-1px;color:#F1F5FB">El problema: aplicaciones sin redundancia</h2>
+</div>
+<div style="position:absolute;left:128px;top:300px;width:760px;display:flex;flex-direction:column;gap:16px;background:#141F36;border:1px solid #24334F;border-radius:16px;padding:40px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#F59E0B">ANTES</p>
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:40px;font-weight:600;color:#F1F5FB">Situación actual</h3>
+<ul style="font-size:26px;line-height:1.4;color:#C7D2E3">
+<li>Aplicaciones en máquinas virtuales individuales, sin redundancia</li>
+<li>Despliegues manuales de 30 a 45 minutos, sin reversión</li>
+<li>Respaldos manuales y sin pruebas de restauración</li>
+<li>Sin monitoreo centralizado ni alertas</li>
+<li>Red plana, accesos compartidos y sin escaneo de vulnerabilidades</li>
+</ul>
+</div>
+<x-shape kind="arrow-right" data-build-in="fade 1" style="position:absolute;left:912px;top:540px;width:96px;height:48px;background:#22D3EE"></x-shape>
+<div data-build-in="rise 1" style="position:absolute;left:1032px;top:300px;width:760px;display:flex;flex-direction:column;gap:16px;background:#0F2A3D;border:1px solid #1C6E86;border-radius:16px;padding:40px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">DESPUÉS</p>
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:40px;font-weight:600;color:#F1F5FB">Necesidad</h3>
+<ul style="font-size:26px;line-height:1.4;color:#D5E6F2">
+<li>Continuidad: disponibilidad mensual ≥ 99,9 %</li>
+<li>Despliegue ágil con reversión inmediata</li>
+<li>Seguridad, trazabilidad y accesos por rol</li>
+<li>Respaldos verificados con metas de RPO y RTO</li>
+<li>Visibilidad antes de que los usuarios noten la falla</li>
+</ul>
+</div>
+<p style="position:absolute;left:128px;top:860px;width:1664px;font-size:24px;line-height:1.4;color:#94A3B8">Escenario de referencia supuesto: ≈ 250 usuarios, 12 aplicaciones internas y 1 portal público; carga estimada ≈ 15 vCPU y 36 GB.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">02 / 15</p>
+<aside>El enunciado no fija una organización, por eso se adopta un escenario de referencia documentado en el informe (Tabla 2). El tiempo de despliegue de 45 minutos proviene del caso de una entidad estatal peruana (Aguilar y García, 2024). Al presentar: primero se muestra la situación actual; con un clic aparece la flecha y la columna de necesidades.</aside>
+</section>

@@ -1,0 +1,33 @@
+<section id="plan" data-transition="fade" style="background:#0B1220;color:#C7D2E3;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(90deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;background:repeating-linear-gradient(0deg, rgba(148,163,184,0.06) 0px, rgba(148,163,184,0.06) 1px, transparent 1px, transparent 64px)"></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#22D3EE">// OPERACIÓN</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-1px;color:#F1F5FB">Plan de implementación</h2>
+</div>
+<img src="/_blob/6c74573896c940500ecdc1c2b937581f" alt="Cronograma de 8 semanas con 11 actividades" style="position:absolute;left:128px;top:296px;width:1040px;height:470px;object-fit:contain;background:#F4F7FB;border:1px solid #24334F;border-radius:16px">
+<x-embed style="position:absolute;left:128px;top:786px;width:1040px;height:150px"><style>html,body{margin:0;height:100%;overflow:hidden;background:transparent}body{position:relative;font:24px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#C7D2E3}.c{position:absolute;top:0;width:100px;height:52px;box-sizing:border-box;border-radius:10px;border:2px solid #2A3B5C;background:#111B30;color:#C7D2E3;text-align:center;line-height:48px;font-weight:600;transition:background .35s,border-color .35s,color .35s,box-shadow .35s}.on{background:#22D3EE;border-color:#22D3EE;color:#0B1220}.cur{border-color:#22D3EE;color:#F1F5FB;box-shadow:0 0 18px rgba(34,211,238,.7)}.lab{position:absolute;left:0;top:11px;color:#94A3B8;white-space:nowrap}.tr{position:absolute;left:250px;top:25px;width:720px;height:2px;background:#2A3B5C}.pg{position:absolute;left:250px;top:24px;width:0;height:4px;background:#22D3EE;transition:width .6s}.l1{position:absolute;left:0;top:72px;font:26px system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:#F1F5FB;white-space:nowrap}.l2{position:absolute;left:0;top:112px;font:24px system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:#94A3B8;white-space:nowrap}</style>
+<div class="lab">Ruta crítica</div><div class="tr"></div><div class="pg" id="pg"></div><div class="l1" id="l1"></div><div class="l2" id="l2"></div>
+<script>
+var N=['A2','A3','A4','A5','A8','A10','A11'];
+var T=['Infraestructura base (hipervisor, VLAN, VM, SO)','Balanceo del API (HAProxy + Keepalived)','Clúster Kubernetes HA (kubeadm, etcd apilado)','Servicios de plataforma (CNI, MetalLB, Ingress, Longhorn)','Aplicación de validación, BD HA, HPA y CI/CD','Ejecución del plan de pruebas','Documentación y sustentación'];
+var W=['Semanas 1–2 · inicio de la ruta crítica','Semana 2 · empieza cuando avanza A2','Semanas 2–3 · depende de A3','Semanas 3–4 · depende de A4','Semanas 5–6 · depende de A5','Semana 7 · depende de A8','Semanas 7–8 · cierra el proyecto'];
+var ch=[],k=0,pg=document.getElementById('pg'),l1=document.getElementById('l1'),l2=document.getElementById('l2');
+for(var i=0;i!==N.length;i++){var d=document.createElement('div');d.className='c';d.style.left=(200+i*120)+'px';d.textContent=N[i];document.body.appendChild(d);ch.push(d)}
+function R(){for(var j=0;j!==ch.length;j++){ch[j].className=(k>j)?'c on':((k===j)?'c cur':'c')}pg.style.width=Math.min(720,k*120)+'px';if(k===N.length){l1.textContent='Ruta crítica completa: 7 actividades sin holgura';l2.textContent='Si una se retrasa, se retrasa toda la entrega de la semana 8.'}else{l1.textContent=N[k]+' · '+T[k];l2.textContent=W[k]}}
+function tick(){R();if(k===N.length){setTimeout(function(){k=0;tick()},3500)}else{k++;setTimeout(tick,1900)}}
+k=0;R();setTimeout(function(){tick()},0);
+</script></x-embed>
+<div style="position:absolute;left:1208px;top:296px;width:584px;display:flex;flex-direction:column;gap:28px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:600;line-height:1.1;color:#22D3EE">8 semanas, 11 actividades</p>
+<ul style="font-size:26px;line-height:1.45;color:#C7D2E3">
+<li>6 integrantes, de 8 a 10 h por semana</li>
+<li>Laboratorio: 9 VM en una estación de 32 GB o más</li>
+<li>Todo el software es de código abierto</li>
+<li>Git como origen único, con Ansible y Helm</li>
+</ul>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">12 / 15</p>
+<aside>La III Unidad implementará exactamente lo diseñado en un laboratorio a escala con la topología lógica completa. Hitos: alta disponibilidad operativa en la semana 3, plataforma en la 4, seguridad y observabilidad en la 5, respaldo en la 6 y pruebas en la 7. No se añaden componentes ajenos al diseño sin justificación técnica documentada. La animación recorre la ruta crítica A2 → A3 → A4 → A5 → A8 → A10 → A11: en cada paso muestra el nombre de la actividad, sus semanas y de cuál depende; al final recuerda que estas 7 actividades no tienen holgura.</aside>
+</section>
