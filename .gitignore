@@ -4,6 +4,7 @@ Referencias/
 *.docx
 *.pptx
 *.pdf
+!docs/presentacion/*.pdf
 
 # Secretos y variables locales
 *.env
