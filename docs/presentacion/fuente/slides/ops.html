@@ -76,6 +76,6 @@ function fr(t){var dt=Math.min(0.05,(t-last)/1000);last=t;if(!frz){mw.textConten
 requestAnimationFrame(fr);
 </script></x-embed>
 <p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
-<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">15 / 23</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#7C8BA1">10 / 12</p>
 <aside>Metas: RPO de 5 minutos para bases de datos, RTO de 30 minutos para restaurar un namespace y reconstrucción total en 4 horas. Hay seis procedimientos de respuesta para los escenarios principales y revisión posterior sin culpables. La animación inferior cuenta la historia completa del respaldo en 4 pasos: 1) el WAL de PostgreSQL fluye sin pausa hacia MinIO (puntos pequeños) y etcd y Velero envían copias periódicas (bloques); 2) una copia sale fuera de sitio, completando la regla 3-2-1; 3) se pierde la base de datos y el contador «WAL: hace…» de MinIO muestra cuántos datos quedarían sin respaldar, que es el RPO; 4) se restaura desde MinIO y se reaplica el WAL, con la meta de RTO. Los tiempos están acelerados para la demostración.</aside>
 </section>

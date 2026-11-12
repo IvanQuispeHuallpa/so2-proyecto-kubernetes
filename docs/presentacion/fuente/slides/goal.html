@@ -55,6 +55,6 @@ function fr(t){var dt=Math.min(0.05,(t-last)/1000);last=t;step(dt);requestAnimat
 requestAnimationFrame(fr);
 </script></x-embed>
 <p style="position:absolute;left:128px;bottom:64px;width:1200px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8EA0BA">Plataforma Kubernetes de alta disponibilidad · II Unidad</p>
-<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8EA0BA">03 / 23</p>
+<p style="position:absolute;right:128px;bottom:64px;width:200px;text-align:right;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8EA0BA">03 / 12</p>
 <aside>Seis objetivos específicos en el informe: requerimientos, arquitectura sin puntos únicos de falla, infraestructura y red, seguridad, modelo operativo con plan de implementación y pruebas, y factibilidad frente a una nube gestionada. La animación avanza en 4 pasos numerados: 1) dos aplicaciones, web y api, con 3 réplicas cada una repartidas en los tres hosts; 2) cae el host B y el contador de réplicas baja a 2/3 (naranja); 3) el controlador crea pods nuevos en A y C (con brillo) y las réplicas vuelven a 3/3; 4) el host B vuelve vacío como reserva. El contador de peticiones atendidas nunca se detiene: esa es la alta disponibilidad.</aside>
 </section>

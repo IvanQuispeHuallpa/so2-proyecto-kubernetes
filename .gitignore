@@ -5,6 +5,7 @@ Referencias/
 *.pptx
 *.pdf
 !docs/presentacion/*.pdf
+!docs/presentacion/completa/*.pdf
 
 # Secretos y variables locales
 *.env

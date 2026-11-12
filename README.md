@@ -23,9 +23,10 @@ Metas de diseño: disponibilidad ≥ 99,9 %, RPO ≤ 5 min y RTO ≤ 30 min.
 ├── simulacion/            Laboratorio ligero con kind (contenedores Docker en lugar de VM)
 └── docs/
     ├── diagramas/         Arquitectura, red, seguridad, despliegue, flujos, cronograma y costos (PNG)
-    └── presentacion/      Presentación del proyecto, 23 diapositivas (index.html: abrir en el navegador; fuente/: diapositivas originales;
-                           «Plataforma Kubernetes de alta disponibilidad.html»: versión exportada autónoma;
-                           «Plataforma Kubernetes de alta disponibilidad.pdf»: versión en PDF)
+    └── presentacion/      Presentación del proyecto, 12 diapositivas (index.html: abrir en el navegador; fuente/: diapositivas originales;
+                           «Plataforma Kubernetes de alta disponibilidad.html» y .pdf: versiones exportadas;
+                           completa/: versión de 23 diapositivas con el detalle de hardware, software y costos;
+                           fuente/anexo/: diapositivas que no están en la versión de 12)
 ```
 
 El código de la implementación (Ansible, Vagrant, Helm, etc.) se irá agregando en estas carpetas durante la III Unidad.
@@ -39,5 +40,5 @@ El código de la implementación (Ansible, Vagrant, Helm, etc.) se irá agregand
 ## Notas
 
 - Los valores marcados como `CAMBIAR_SECRETO` o `v1.XX.X` deben completarse antes de usar los archivos; los secretos no se guardan en el repositorio.
-- Los costos del diseño son estimaciones referenciales del equipo: precios de mercado del 11/11/2026 convertidos a S/ 3,418 por dólar. La presentación detalla
-  hardware, software y licencias, CapEx (S/ 155 321), OpEx anual (S/ 28 106), la nube equivalente en AWS y los escenarios a 5 años.
+- Los costos del diseño son estimaciones referenciales del equipo: precios de mercado del 11/11/2026 convertidos a S/ 3,418 por dólar. La versión completa de la presentación
+  (`docs/presentacion/completa/`) detalla hardware, software y licencias, CapEx (S/ 155 321), OpEx anual (S/ 28 106), la nube equivalente en AWS y los escenarios a 5 años.
